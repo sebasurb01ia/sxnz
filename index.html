@@ -676,7 +676,221 @@ footer {
   .hero-stats { gap:1.5rem }
 }
 
-/* ═══ REVEAL ANIMATION ═══ */
+/* ══════════ ADD PROJECT BUTTON ══════════ */
+.pf-add-btn {
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:'Cinzel',serif;font-size:.58rem;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;
+  padding:.48rem 1.2rem;
+  background:linear-gradient(135deg,rgba(77,255,210,.08),rgba(155,93,229,.08));
+  border:1px solid rgba(77,255,210,.35);
+  color:var(--cyan);cursor:pointer;
+  clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+  transition:all .22s;margin-left:.4rem;
+}
+.pf-add-btn:hover {
+  background:linear-gradient(135deg,rgba(77,255,210,.18),rgba(155,93,229,.15));
+  border-color:var(--cyan);box-shadow:var(--cyan-glow);
+  transform:translateY(-2px);
+}
+.pf-add-icon {
+  font-size:1.1rem;line-height:1;font-family:monospace;font-weight:300;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:18px;height:18px;border:1px solid rgba(77,255,210,.5);
+  border-radius:50%;
+}
+
+/* ══════════ MODAL ══════════ */
+.modal-backdrop {
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(7,5,15,.85);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+  padding:1rem;
+}
+.modal-backdrop.open {
+  opacity:1;pointer-events:all;
+}
+.modal-box {
+  width:100%;max-width:700px;max-height:90vh;overflow-y:auto;
+  background:var(--bg1);
+  border:1px solid rgba(77,255,210,.25);
+  position:relative;
+  transform:translateY(30px) scale(.97);
+  transition:transform .35s ease;
+  /* Custom scrollbar */
+  scrollbar-width:thin;scrollbar-color:var(--violet) var(--bg);
+}
+.modal-backdrop.open .modal-box {
+  transform:none;
+}
+/* Glow border */
+.modal-box::before {
+  content:'';position:absolute;inset:-1px;z-index:-1;
+  background:linear-gradient(135deg,var(--cyan),var(--violet),var(--magenta));
+  background-size:300% 300%;
+  animation:featBorderFlow 3s linear infinite;
+  opacity:.5;
+}
+
+.modal-header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 1.8rem 1.2rem;
+  border-bottom:1px solid var(--b-soft);
+  position:sticky;top:0;background:var(--bg1);z-index:2;
+}
+.modal-title {
+  font-family:'Cinzel Decorative',serif;font-size:1rem;font-weight:700;
+  letter-spacing:.1em;color:var(--white);
+  display:flex;align-items:center;gap:.7rem;
+}
+.modal-gem {
+  color:var(--cyan);font-size:1.2rem;text-shadow:var(--cyan-glow);
+  animation:gemPulse 3s infinite;
+}
+.modal-close {
+  width:32px;height:32px;background:rgba(255,255,255,.04);
+  border:1px solid var(--b-soft);color:var(--muted);
+  cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.modal-close:hover { color:var(--magenta);border-color:rgba(255,77,210,.4);background:rgba(255,77,210,.06) }
+
+.modal-body { padding:1.8rem }
+
+/* ── Image Upload Zone ── */
+.img-upload-zone {
+  width:100%;height:160px;
+  border:1.5px dashed rgba(77,255,210,.3);
+  background:rgba(77,255,210,.03);
+  margin-bottom:1.6rem;position:relative;overflow:hidden;
+  transition:border-color .2s,background .2s;cursor:pointer;
+}
+.img-upload-zone:hover, .img-upload-zone.dragover {
+  border-color:rgba(77,255,210,.65);
+  background:rgba(77,255,210,.07);
+}
+.img-upload-inner {
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;gap:.4rem;
+}
+.upload-icon {
+  font-size:1.8rem;color:var(--cyan);opacity:.6;
+  transition:transform .2s,opacity .2s;
+}
+.img-upload-zone:hover .upload-icon { transform:translateY(-4px);opacity:1 }
+.upload-title {
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;
+  color:var(--white);font-weight:600;
+}
+.upload-sub { font-size:.75rem;color:var(--muted) }
+
+.img-preview-wrap {
+  width:100%;height:160px;position:relative;
+}
+.img-preview-wrap img {
+  width:100%;height:100%;object-fit:cover;
+}
+.img-remove-btn {
+  position:absolute;top:8px;right:8px;
+  font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.1em;
+  padding:.3rem .7rem;background:rgba(7,5,15,.8);
+  border:1px solid rgba(255,77,210,.5);color:var(--magenta);
+  cursor:pointer;transition:all .2s;text-transform:uppercase;
+}
+.img-remove-btn:hover { background:rgba(255,77,210,.15) }
+
+/* ── Form Fields ── */
+.modal-fields { display:flex;flex-direction:column;gap:1.1rem }
+.mf-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem }
+.mf-row .mf-sm { max-width:180px }
+.mf-group { display:flex;flex-direction:column;gap:.4rem }
+.mf-label {
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;
+  color:var(--muted);text-transform:uppercase;font-weight:600;
+}
+.mf-hint { color:var(--dim);font-weight:400;letter-spacing:.06em }
+.mf-input, .mf-select, .mf-textarea {
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--b-soft);
+  color:var(--white);
+  padding:.65rem .9rem;
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  outline:none;transition:border-color .2s,background .2s;
+  appearance:none;-webkit-appearance:none;
+  width:100%;
+}
+.mf-input::placeholder, .mf-textarea::placeholder {
+  color:var(--dim);
+}
+.mf-input:focus, .mf-select:focus, .mf-textarea:focus {
+  border-color:rgba(77,255,210,.5);
+  background:rgba(77,255,210,.04);
+  box-shadow:0 0 0 2px rgba(77,255,210,.08);
+}
+.mf-select {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b5f8a'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:calc(100% - .8rem) 50%;
+  background-size:8px;padding-right:2.2rem;cursor:pointer;
+}
+.mf-select option { background:var(--bg2);color:var(--white) }
+.mf-textarea { resize:vertical;min-height:80px;line-height:1.6 }
+
+.modal-footer {
+  display:flex;align-items:center;justify-content:flex-end;gap:1rem;
+  padding:1.2rem 1.8rem 1.6rem;
+  border-top:1px solid var(--b-soft);
+  position:sticky;bottom:0;background:var(--bg1);
+}
+.modal-cancel {
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;font-weight:700;
+  text-transform:uppercase;color:var(--muted);
+  padding:.55rem 1.4rem;border:1px solid var(--b-soft);
+  background:transparent;cursor:pointer;transition:all .2s;
+  clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);
+}
+.modal-cancel:hover { color:var(--white);border-color:rgba(255,255,255,.2) }
+.modal-submit {
+  font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.16em;font-weight:700;
+  text-transform:uppercase;color:var(--bg);
+  padding:.6rem 2rem;
+  background:linear-gradient(135deg,var(--cyan),var(--teal));
+  border:none;cursor:pointer;transition:all .2s;
+  clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);
+  box-shadow:var(--cyan-glow);
+}
+.modal-submit:hover { transform:translateY(-2px);box-shadow:0 0 35px var(--cyan) }
+.modal-submit:disabled { opacity:.4;pointer-events:none }
+
+/* ── Toast notification ── */
+.proj-toast {
+  position:fixed;bottom:2rem;right:2rem;z-index:9999;
+  font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.12em;
+  padding:.75rem 1.4rem;
+  background:rgba(13,10,30,.95);
+  border:1px solid rgba(77,255,210,.4);
+  color:var(--cyan);
+  transform:translateY(80px);opacity:0;
+  transition:transform .35s ease, opacity .35s ease;
+  pointer-events:none;
+  box-shadow:var(--cyan-glow);
+}
+.proj-toast.show { transform:none;opacity:1 }
+.proj-toast.error { border-color:rgba(255,77,210,.5);color:var(--magenta);box-shadow:var(--mag-glow) }
+
+/* ── User project card (deletable) ── */
+.proj-card.user-card .proj-delete-btn {
+  position:absolute;top:8px;left:8px;z-index:5;
+  width:24px;height:24px;background:rgba(255,77,210,.15);
+  border:1px solid rgba(255,77,210,.4);color:var(--magenta);
+  cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .2s,background .2s;
+}
+.proj-card.user-card:hover .proj-delete-btn { opacity:1 }
+.proj-card.user-card .proj-delete-btn:hover { background:rgba(255,77,210,.35) }
+
+/* ══════════ REVEAL ANIMATION ══════════ */
 .reveal { opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease }
 .reveal.visible { opacity:1;transform:none }
 </style>
@@ -818,6 +1032,95 @@ footer {
     <button class="pf-btn" data-filter="fullstack">⚡ Full-Stack</button>
     <button class="pf-btn" data-filter="backend">☁️ Backend</button>
     <div class="proj-count">Mostrando <span id="proj-count-n">6</span> proyectos</div>
+    <button class="pf-add-btn" id="openAddProject" title="Agregar proyecto">
+      <span class="pf-add-icon">+</span>
+      <span>Agregar Proyecto</span>
+    </button>
+  </div>
+
+  <!-- ── ADD PROJECT MODAL ── -->
+  <div id="addProjectModal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="modal-gem">◈</span>
+          Nuevo Proyecto
+        </div>
+        <button class="modal-close" id="closeModal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Image upload zone -->
+        <div class="img-upload-zone" id="imgUploadZone">
+          <div class="img-upload-inner" id="imgUploadInner">
+            <div class="upload-icon">⬆</div>
+            <div class="upload-title">Arrastra una imagen aquí</div>
+            <div class="upload-sub">o haz clic para seleccionar · PNG, JPG, WebP · Máx 5MB</div>
+            <input type="file" id="imgFileInput" accept="image/*" style="display:none">
+          </div>
+          <div class="img-preview-wrap" id="imgPreviewWrap" style="display:none">
+            <img id="imgPreview" src="" alt="preview">
+            <button class="img-remove-btn" id="imgRemoveBtn">✕ Quitar</button>
+          </div>
+        </div>
+
+        <!-- Form fields -->
+        <div class="modal-fields">
+          <div class="mf-row">
+            <div class="mf-group">
+              <label class="mf-label">Nombre del Proyecto *</label>
+              <input class="mf-input" id="pName" type="text" placeholder="Mi Proyecto Increíble">
+            </div>
+            <div class="mf-group mf-sm">
+              <label class="mf-label">Categoría *</label>
+              <select class="mf-select" id="pCat">
+                <option value="ai">🤖 AI / ML</option>
+                <option value="fullstack">⚡ Full-Stack</option>
+                <option value="backend">☁️ Backend</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mf-group">
+            <label class="mf-label">Descripción *</label>
+            <textarea class="mf-input mf-textarea" id="pDesc" rows="3" placeholder="Describe qué hace el proyecto, tecnologías clave y resultados..."></textarea>
+          </div>
+
+          <div class="mf-row">
+            <div class="mf-group">
+              <label class="mf-label">Tech Stack <span class="mf-hint">(separado por comas)</span></label>
+              <input class="mf-input" id="pStack" type="text" placeholder="React, Node.js, OpenAI">
+            </div>
+            <div class="mf-group mf-sm">
+              <label class="mf-label">Estado</label>
+              <select class="mf-select" id="pBadge">
+                <option value="live">✅ Live</option>
+                <option value="wip">🔨 WIP</option>
+                <option value="case">📋 Case Study</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mf-row">
+            <div class="mf-group">
+              <label class="mf-label">Link Demo / URL</label>
+              <input class="mf-input" id="pLink" type="url" placeholder="https://mi-proyecto.com">
+            </div>
+            <div class="mf-group">
+              <label class="mf-label">Link GitHub</label>
+              <input class="mf-input" id="pGithub" type="url" placeholder="https://github.com/...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="modal-cancel" id="cancelModal">Cancelar</button>
+        <button class="modal-submit" id="submitProject">
+          <span>✦ Publicar Proyecto</span>
+        </button>
+      </div>
+    </div>
   </div>
   <div class="proj-grid" id="proj-grid">
 
@@ -1475,21 +1778,249 @@ function drawParticles(){
 }
 drawParticles();
 
-/* ── PROJECT FILTERS ── */
+/* ── PROJECT MANAGER ── */
 (function(){
-  // Add .card-overlay to every non-featured card
+  const STORAGE_KEY = 'sxnz_projects_v1';
+
+  /* ─ DOM refs ─ */
+  const modal        = document.getElementById('addProjectModal');
+  const openBtn      = document.getElementById('openAddProject');
+  const closeBtn     = document.getElementById('closeModal');
+  const cancelBtn    = document.getElementById('cancelModal');
+  const submitBtn    = document.getElementById('submitProject');
+  const grid         = document.getElementById('proj-grid');
+  const uploadZone   = document.getElementById('imgUploadZone');
+  const uploadInner  = document.getElementById('imgUploadInner');
+  const previewWrap  = document.getElementById('imgPreviewWrap');
+  const imgPreview   = document.getElementById('imgPreview');
+  const imgRemoveBtn = document.getElementById('imgRemoveBtn');
+  const fileInput    = document.getElementById('imgFileInput');
+
+  let currentImgData = null; // base64 string
+
+  /* ─ Toast ─ */
+  const toast = document.createElement('div');
+  toast.className = 'proj-toast';
+  document.body.appendChild(toast);
+  let toastTimer;
+  function showToast(msg, isErr=false) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.className = 'proj-toast' + (isErr ? ' error' : '');
+    requestAnimationFrame(()=>{ toast.classList.add('show'); });
+    toastTimer = setTimeout(()=>toast.classList.remove('show'), 3200);
+  }
+
+  /* ─ Modal open / close ─ */
+  function openModal() { modal.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    resetForm();
+  }
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+  /* ─ Image upload logic ─ */
+  uploadZone.addEventListener('click', e => {
+    if(e.target === imgRemoveBtn || imgRemoveBtn.contains(e.target)) return;
+    fileInput.click();
+  });
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if(file) handleImageFile(file);
+  });
+  uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+  uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if(file && file.type.startsWith('image/')) handleImageFile(file);
+    else showToast('Solo se permiten imágenes.', true);
+  });
+  imgRemoveBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    currentImgData = null;
+    previewWrap.style.display = 'none';
+    uploadInner.style.display = 'flex';
+    fileInput.value = '';
+  });
+
+  function handleImageFile(file) {
+    if(file.size > 5 * 1024 * 1024) { showToast('Imagen demasiado grande (máx 5MB).', true); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      currentImgData = e.target.result;
+      imgPreview.src = currentImgData;
+      uploadInner.style.display = 'none';
+      previewWrap.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  /* ─ Reset form ─ */
+  function resetForm() {
+    ['pName','pDesc','pStack','pLink','pGithub'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.value = '';
+    });
+    document.getElementById('pCat').value = 'ai';
+    document.getElementById('pBadge').value = 'live';
+    currentImgData = null;
+    previewWrap.style.display = 'none';
+    uploadInner.style.display = 'flex';
+    fileInput.value = '';
+  }
+
+  /* ─ Submit ─ */
+  submitBtn.addEventListener('click', () => {
+    const name  = document.getElementById('pName').value.trim();
+    const desc  = document.getElementById('pDesc').value.trim();
+    const cat   = document.getElementById('pCat').value;
+    const badge = document.getElementById('pBadge').value;
+    const stack = document.getElementById('pStack').value.trim();
+    const link  = document.getElementById('pLink').value.trim();
+    const github= document.getElementById('pGithub').value.trim();
+
+    if(!name) { showToast('El nombre del proyecto es obligatorio.', true); document.getElementById('pName').focus(); return; }
+    if(!desc)  { showToast('La descripción es obligatoria.', true); document.getElementById('pDesc').focus(); return; }
+
+    const project = {
+      id: 'proj_' + Date.now(),
+      name, desc, cat, badge,
+      stack: stack ? stack.split(',').map(s=>s.trim()).filter(Boolean) : [],
+      link, github,
+      img: currentImgData
+    };
+
+    saveProject(project);
+    renderProject(project, true);
+    updateCount();
+    closeModal();
+    showToast('✦ Proyecto agregado correctamente.');
+
+    // Scroll to new card
+    setTimeout(()=>{
+      const newCard = document.querySelector(`[data-proj-id="${project.id}"]`);
+      if(newCard) newCard.scrollIntoView({ behavior:'smooth', block:'center' });
+    }, 400);
+  });
+
+  /* ─ localStorage ─ */
+  function getSavedProjects() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveProject(project) {
+    const all = getSavedProjects();
+    all.push(project);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
+    catch(e) { showToast('No se pudo guardar (almacenamiento lleno).', true); }
+  }
+  function deleteProject(id) {
+    const all = getSavedProjects().filter(p => p.id !== id);
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
+    catch(e) {}
+  }
+
+  /* ─ Render a project card ─ */
+  function renderProject(p, animate=false) {
+    const badgeClass = p.badge === 'live' ? 'live' : p.badge === 'wip' ? 'wip' : 'case';
+    const badgeLabel = p.badge === 'live' ? 'Live' : p.badge === 'wip' ? 'WIP' : 'Case Study';
+
+    const stackHtml = (p.stack||[]).map(t =>
+      `<span class="proj-tag">${t}</span>`
+    ).join('');
+
+    const imgHtml = p.img
+      ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:180px;object-fit:cover;display:block;">`
+      : `<div style="width:100%;height:180px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#130f28,#1c1535);font-size:2rem;opacity:.5;">📦</div>`;
+
+    const linkHtml = p.link
+      ? `<a href="${p.link}" target="_blank" class="proj-link">Ver proyecto</a>` : `<span></span>`;
+    const githubHtml = p.github
+      ? `<a href="${p.github}" target="_blank" class="proj-link" style="color:var(--violet-b)">GitHub</a>` : '';
+
+    const card = document.createElement('div');
+    card.className = 'proj-card user-card reveal' + (animate ? '' : '');
+    card.dataset.cat = p.cat;
+    card.dataset.projId = p.id;
+    if(animate) card.style.animationName = 'cardIn';
+
+    card.innerHTML = `
+      <div class="card-overlay"></div>
+      <button class="proj-delete-btn" title="Eliminar proyecto">✕</button>
+      <div class="proj-img-wrap">
+        ${imgHtml}
+        <span class="proj-badge ${badgeClass}">${badgeLabel}</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack">${stackHtml}</div>
+        <h3 class="proj-name">${p.name}</h3>
+        <p class="proj-desc">${p.desc}</p>
+        <div class="proj-footer">
+          ${linkHtml}
+          ${githubHtml}
+        </div>
+      </div>`;
+
+    // Delete handler
+    card.querySelector('.proj-delete-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      card.style.transition = 'opacity .25s, transform .25s';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(.9)';
+      setTimeout(()=>{
+        card.remove();
+        deleteProject(p.id);
+        updateCount();
+        showToast('Proyecto eliminado.');
+      }, 260);
+    });
+
+    // Reveal observer
+    card.classList.add('reveal');
+    revealObserver.observe(card);
+
+    grid.appendChild(card);
+  }
+
+  /* ─ Update visible count ─ */
+  function updateCount() {
+    const visible = grid.querySelectorAll('.proj-card:not([style*="display: none"]):not([style*="display:none"])').length;
+    const countEl = document.getElementById('proj-count-n');
+    if(countEl) countEl.textContent = visible;
+  }
+
+  /* ─ Load saved projects on startup ─ */
+  const saved = getSavedProjects();
+  saved.forEach(p => renderProject(p, false));
+  if(saved.length) updateCount();
+
+})();
+
+/* ── SCROLL REVEAL ── */
+(function(){
+  // Add .card-overlay to every non-featured card already in DOM
   document.querySelectorAll('.proj-card:not(.proj-featured)').forEach(card => {
-    const ov = document.createElement('div');
-    ov.className = 'card-overlay';
-    card.prepend(ov);
+    if(!card.querySelector('.card-overlay')){
+      const ov = document.createElement('div');
+      ov.className = 'card-overlay';
+      card.prepend(ov);
+    }
   });
 
   const btns  = document.querySelectorAll('.pf-btn');
-  const cards = document.querySelectorAll('.proj-card');
   const countEl = document.getElementById('proj-count-n');
 
+  function getAllCards() { return document.querySelectorAll('.proj-card'); }
+
   function updateCount() {
-    const visible = document.querySelectorAll('.proj-card:not(.proj-hidden)').length;
+    const visible = document.querySelectorAll('.proj-card:not([style*="display: none"]):not(.proj-hidden)').length;
     if(countEl) countEl.textContent = visible;
   }
 
@@ -1499,10 +2030,9 @@ drawParticles();
       btn.classList.add('active');
       const filter = btn.dataset.filter;
 
-      cards.forEach((card, idx) => {
+      getAllCards().forEach((card, idx) => {
         const cat = card.dataset.cat;
         const show = filter === 'all' || cat === filter;
-
         if (!show) {
           card.classList.add('hiding');
           setTimeout(() => {
@@ -1514,10 +2044,9 @@ drawParticles();
         } else {
           card.style.display = card.classList.contains('proj-featured') ? 'grid' : '';
           card.classList.remove('proj-hidden');
-          // Stagger reveal
-          card.style.animationDelay = (idx * 0.06) + 's';
+          card.style.animationDelay = (idx * 0.05) + 's';
           card.style.animation = 'none';
-          card.offsetHeight; // reflow
+          card.offsetHeight;
           card.style.animation = '';
           updateCount();
         }
@@ -1530,10 +2059,10 @@ drawParticles();
 
 
 const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries=>{
+const revealObserver = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') });
 },{ threshold:.12 });
-reveals.forEach(el=>observer.observe(el));
+reveals.forEach(el=>revealObserver.observe(el));
 
 /* ══════════════════════════════════════
    SPACE SHOOTER GAME
