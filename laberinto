@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>NEON CYBER-LAB: RAYCASTING ENGINE</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --panel: #0a0a0a;
+            --accent: #ff6600;
+            --wall: #1a1a1a;
+            --text: #ffffff;
+        }
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: var(--bg); color: var(--text); 
+            font-family: 'Courier New', monospace; overflow: hidden;
+        }
+
+        #ui-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; display: flex; flex-direction: column;
+            justify-content: space-between; padding: 20px;
+            border: 1px solid #222;
+        }
+
+        .hud-box {
+            background: rgba(10, 10, 10, 0.8);
+            border-left: 3px solid var(--accent);
+            padding: 10px; font-size: 12px; letter-spacing: 2px;
+        }
+
+        canvas { display: block; image-rendering: pixelated; }
+
+        #minimap {
+            position: absolute; bottom: 20px; right: 20px;
+            border: 1px solid #333; background: #000;
+            opacity: 0.7;
+        }
+
+        .crosshair {
+            position: absolute; top: 50%; left: 50%;
+            width: 20px; height: 20px;
+            border: 1px solid var(--accent);
+            transform: translate(-50%, -50%); border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas"></canvas>
+    <canvas id="minimap" width="150" height="150"></canvas>
+
+    <div id="ui-layer">
+        <div class="hud-box">
+            SYSTEM: ACTIVE<br>
+            CORE_TEMP: 34°C<br>
+            ENGINE: CUSTOM_RAYCAST_V1
+        </div>
+        <div class="hud-box" style="align-self: flex-end; border-left: 0; border-right: 3px solid var(--accent);">
+            AMMO: INF<br>
+            POS_X: <span id="pos-x">0</span><br>
+            POS_Y: <span id="pos-y">0</span>
+        </div>
+    </div>
+    <div class="crosshair"></div>
+
+<script>
+/**
+ * CONFIGURACIÓN DEL MOTOR
+ */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const mCanvas = document.getElementById('minimap');
+const mCtx = mCanvas.getContext('2d');
+
+const mapSize = 12;
+const map = [
+    1,1,1,1,1,1,1,1,1,1,1,1,
+    1,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,1,1,0,1,1,0,1,1,0,1,
+    1,0,1,0,0,0,0,0,0,1,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,1,0,0,1,1,0,0,1,0,1,
+    1,0,1,0,0,1,1,0,0,1,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,1,1,0,0,0,0,1,1,0,1,
+    1,0,0,0,0,1,1,0,0,0,0,1,
+    1,0,0,0,0,1,1,0,0,0,0,1,
+    1,1,1,1,1,1,1,1,1,1,1,1
+];
+
+const player = {
+    x: 2, y: 2, dir: 0, rot: 0,
+    speed: 0, moveSpeed: 0.05, rotSpeed: 0.04
+};
+
+const keys = {};
+window.onkeydown = (e) => keys[e.code] = true;
+window.onkeyup = (e) => keys[e.code] = false;
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.onresize = resize;
+resize();
+
+/**
+ * LÓGICA DE DISPARO (PARTÍCULAS)
+ */
+let particles = [];
+window.onclick = () => {
+    for(let i=0; i<10; i++) {
+        particles.push({
+            x: player.x, y: player.y, 
+            vx: Math.cos(player.dir) * 0.2 + (Math.random()-0.5)*0.1,
+            vy: Math.sin(player.dir) * 0.2 + (Math.random()-0.5)*0.1,
+            life: 20
+        });
+    }
+};
+
+/**
+ * LOOP PRINCIPAL
+ */
+function update() {
+    // Movimiento
+    if (keys['KeyW']) {
+        let nx = player.x + Math.cos(player.dir) * player.moveSpeed;
+        let ny = player.y + Math.sin(player.dir) * player.moveSpeed;
+        if (map[Math.floor(ny)*mapSize + Math.floor(nx)] === 0) { player.x = nx; player.y = ny; }
+    }
+    if (keys['KeyS']) {
+        let nx = player.x - Math.cos(player.dir) * player.moveSpeed;
+        let ny = player.y - Math.sin(player.dir) * player.moveSpeed;
+        if (map[Math.floor(ny)*mapSize + Math.floor(nx)] === 0) { player.x = nx; player.y = ny; }
+    }
+    if (keys['KeyA']) player.dir -= player.rotSpeed;
+    if (keys['KeyD']) player.dir += player.rotSpeed;
+
+    document.getElementById('pos-x').innerText = player.x.toFixed(2);
+    document.getElementById('pos-y').innerText = player.y.toFixed(2);
+
+    render();
+    requestAnimationFrame(update);
+}
+
+function render() {
+    // Fondo: Techo y Suelo
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0, 0, canvas.width, canvas.height/2);
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, canvas.height/2, canvas.width, canvas.height/2);
+
+    // Raycasting
+    const numRays = canvas.width / 2; // Resolución del renderizado
+    const fov = Math.PI / 3;
+
+    for (let i = 0; i < numRays; i++) {
+        let rayAngle = (player.dir - fov/2) + (i / numRays) * fov;
+        let distanceToWall = 0;
+        let hitWall = false;
+
+        let eyeX = Math.cos(rayAngle);
+        let eyeY = Math.sin(rayAngle);
+
+        while (!hitWall && distanceToWall < 15) {
+            distanceToWall += 0.05;
+            let testX = Math.floor(player.x + eyeX * distanceToWall);
+            let testY = Math.floor(player.y + eyeY * distanceToWall);
+
+            if (testX < 0 || testX >= mapSize || testY < 0 || testY >= mapSize) {
+                hitWall = true; distanceToWall = 15;
+            } else if (map[testY * mapSize + testX] === 1) {
+                hitWall = true;
+            }
+        }
+
+        // Corregir efecto ojo de pez
+        let actualDist = distanceToWall * Math.cos(rayAngle - player.dir);
+        let ceiling = (canvas.height / 2.0) - canvas.height / actualDist;
+        let floor = canvas.height - ceiling;
+        
+        // Color basado en distancia (Iluminación dinámica)
+        let brightness = Math.max(0, 255 - (actualDist * 20));
+        ctx.fillStyle = `rgb(${brightness/4}, ${brightness/8}, 0)`; // Naranja industrial oscuro
+        if (distanceToWall >= 15) ctx.fillStyle = '#000';
+        
+        ctx.fillRect(i * (canvas.width / numRays), ceiling, (canvas.width / numRays) + 1, floor - ceiling);
+    }
+
+    // Dibujar Minimapa
+    mCtx.fillStyle = '#000';
+    mCtx.fillRect(0, 0, 150, 150);
+    const blockSize = 150 / mapSize;
+    for(let y=0; y<mapSize; y++) {
+        for(let x=0; x<mapSize; x++) {
+            if(map[y*mapSize + x] === 1) {
+                mCtx.fillStyle = '#222';
+                mCtx.fillRect(x*blockSize, y*blockSize, blockSize-1, blockSize-1);
+            }
+        }
+    }
+    // Jugador en minimapa
+    mCtx.fillStyle = varColor('--accent');
+    mCtx.fillRect(player.x*blockSize-2, player.y*blockSize-2, 4, 4);
+
+    // Partículas
+    particles.forEach((p, index) => {
+        p.x += p.vx; p.y += p.vy; p.life--;
+        mCtx.fillStyle = '#fff';
+        mCtx.fillRect(p.x*blockSize, p.y*blockSize, 2, 2);
+        if(p.life <= 0) particles.splice(index, 1);
+    });
+}
+
+function varColor(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+update();
+</script>
+</body>
+</html>
