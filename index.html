@@ -10,48 +10,52 @@
    ARCANE — PILTOVER × ZAUN PALETTE
 ══════════════════════════════════════ */
 :root {
-  --bg:        #07050f;
-  --bg1:       #0d0a1e;
-  --bg2:       #130f28;
-  --bg3:       #1c1535;
+  -:root {
+  --bg:        #05070f;
+  --bg1:       #0a1220;
+  --bg2:       #0f1a2e;
+  --bg3:       #142445;
 
   --gold:      #e8b84b;
   --gold-b:    #f5d97a;
   --gold-d:    #9e7520;
   --gold-glow: 0 0 18px #e8b84b, 0 0 45px rgba(232,184,75,.28);
 
-  --cyan:      #4dffd2;
-  --cyan-b:    #a8fff0;
-  --cyan-d:    #00b89a;
-  --cyan-glow: 0 0 18px #4dffd2, 0 0 45px rgba(77,255,210,.22);
+  --cyan:      #3ef0ff;
+  --cyan-b:    #a6fbff;
+  --cyan-d:    #009fb3;
+  --cyan-glow: 0 0 18px #3ef0ff, 0 0 45px rgba(62,240,255,.22);
 
-  --magenta:   #ff4dd2;
-  --magenta-b: #ffaaee;
-  --magenta-d: #b8006e;
-  --mag-glow:  0 0 18px #ff4dd2, 0 0 45px rgba(255,77,210,.2);
+  /* 🔵 reemplazo del magenta → azul eléctrico */
+  --blue:      #3b82f6;
+  --blue-b:    #93c5fd;
+  --blue-d:    #1d4ed8;
+  --blue-glow: 0 0 18px #3b82f6, 0 0 45px rgba(59,130,246,.25);
 
-  --violet:    #9b5de5;
-  --violet-b:  #c99dff;
-  --vio-glow:  0 0 18px #9b5de5, 0 0 45px rgba(155,93,229,.2);
+  /* 🔷 reemplazo del violeta → azul profundo */
+  --indigo:    #1e40af;
+  --indigo-b:  #818cf8;
+  --indigo-glow: 0 0 18px #1e40af, 0 0 45px rgba(30,64,175,.25);
 
-  --hex:       #f15bb5;
+  --hex:       #38bdf8;   /* antes rosado → ahora azul claro */
   --amber:     #fee440;
-  --teal:      #00bbf9;
+  --teal:      #06b6d4;
 
-  --white:     #f4f0ff;
-  --text:      #c8c0e8;
-  --muted:     #6b5f8a;
-  --dim:       #2e2650;
+  --white:     #f1f5ff;
+  --text:      #b8c4e0;
+  --muted:     #5c6b8a;
+  --dim:       #1e293b;
 
   --b-gold:    rgba(232,184,75,.28);
-  --b-cyan:    rgba(77,255,210,.2);
-  --b-mag:     rgba(255,77,210,.18);
-  --b-soft:    rgba(180,160,255,.1);
+  --b-cyan:    rgba(62,240,255,.2);
+  --b-blue:    rgba(59,130,246,.18);
+  --b-soft:    rgba(120,160,255,.1);
 
   --nav-h:    64px;
   --px:       clamp(1.2rem, 6vw, 7rem);
   --max:      1060px;
   --r:        4px;
+}
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
