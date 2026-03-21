@@ -30,10 +30,10 @@
   --g3: 0 0 6px #00ffee, 0 0 18px rgba(0,255,238,.4);
   --g4: 0 0 14px #44aaff, 0 0 40px rgba(68,170,255,.3);
 
-  --white:  #d8f0ff;
-  --text:   #4a7fa0;
-  --muted:  #1a3a55;
-  --dim:    #0a1e2f;
+  --white:  #e8f4ff;
+  --text:   #8ec8e8;
+  --muted:  #6aaac8;
+  --dim:    #2a5070;
   --border: rgba(0,204,255,.18);
   --border-b: rgba(0,204,255,.5);
 
@@ -267,18 +267,17 @@ nav::before {
 
 .hero-class {
   font-family:var(--pixel);font-size:.48rem;
-  letter-spacing:.12em;color:var(--b5);
+  letter-spacing:.12em;color:#8ec8e8;
   margin-bottom:2rem;
   animation:fadeUp .7s .15s ease both;
+  text-shadow:0 0 12px rgba(0,180,255,.4);
 }
-.hero-class .sep { color:var(--b3);margin:0 .5rem }
+.hero-class .sep { color:var(--b2);margin:0 .5rem }
 
 @keyframes fadeUp {
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1;transform:translateY(0)}
 }
-
-
 
 /* ── Remote badge ── */
 .remote-badges {
@@ -290,13 +289,13 @@ nav::before {
   font-family:var(--pixel);font-size:.35rem;
   letter-spacing:.1em;
   padding:.3rem .7rem;
-  border:1px solid var(--border);
-  color:var(--b5);text-transform:uppercase;
-  background:rgba(0,60,140,.15);
+  border:1px solid rgba(0,150,255,.35);
+  color:#8ec8e8;text-transform:uppercase;
+  background:rgba(0,60,140,.2);
 }
 .r-badge.primary {
-  border-color:rgba(0,204,255,.45);color:var(--b1);
-  background:rgba(0,100,200,.15);text-shadow:var(--g1);
+  border-color:rgba(0,204,255,.55);color:var(--b1);
+  background:rgba(0,100,200,.2);text-shadow:var(--g1);
 }
 
 /* ── CTA buttons ── */
@@ -344,8 +343,8 @@ nav::before {
 }
 .hs-lbl {
   font-family:var(--orb);font-size:.45rem;
-  letter-spacing:.2em;color:var(--muted);
-  text-transform:uppercase;
+  letter-spacing:.2em;color:#6aaac8;
+  text-transform:uppercase;font-weight:600;
 }
 
 /* ── Right: player screen ── */
@@ -452,9 +451,10 @@ nav::before {
   display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;
 }
 #about .bio-text p {
-  font-family:var(--mono);font-size:.9rem;
-  color:var(--text);line-height:1.9;
-  margin-bottom:1rem;
+  font-family:var(--mono);font-size:1rem;
+  color:#a0d8f0;line-height:1.9;
+  margin-bottom:1.1rem;
+  font-weight:500;
 }
 #about .bio-text strong { color:var(--b6);font-weight:700 }
 #about .bio-text em { color:var(--b1);font-style:normal;text-shadow:var(--g1) }
@@ -485,8 +485,8 @@ nav::before {
   color:var(--muted);letter-spacing:.12em;
   text-transform:uppercase;min-width:110px;
 }
-.spec-val { color:var(--b5);letter-spacing:.06em }
-.spec-val.hot { color:var(--b1);text-shadow:var(--g1) }
+.spec-val { color:#8ec8e8;letter-spacing:.06em;font-weight:600 }
+.spec-val.hot { color:var(--b1);text-shadow:var(--g1);font-weight:700 }
 
 /* ══════════ POWER-UPS — SKILLS ══════════ */
 #skills .powerup-grid {
@@ -666,9 +666,10 @@ nav::before {
 .xp-bar-fill.animated { width:var(--xp) }
 
 .level-desc {
-  font-family:var(--mono);font-size:.82rem;
-  color:var(--text);line-height:1.75;
+  font-family:var(--mono);font-size:.92rem;
+  color:#a0d8f0;line-height:1.85;
   margin-bottom:.8rem;
+  font-weight:500;
 }
 .level-unlocks {
   display:flex;flex-wrap:wrap;gap:.4rem;
@@ -813,8 +814,9 @@ nav::before {
 .mission-featured .m-name { font-size:1.3rem }
 .mission-card:hover .m-name { color:var(--b1);text-shadow:var(--g1) }
 .m-desc {
-  font-size:.82rem;color:var(--muted);
-  line-height:1.65;margin-bottom:.9rem;
+  font-size:.9rem;color:#8ec8e8;
+  line-height:1.72;margin-bottom:.9rem;
+  font-weight:500;
 }
 .m-footer {
   display:flex;justify-content:space-between;align-items:center;
@@ -1069,8 +1071,9 @@ nav::before {
   font-weight:700;margin-bottom:.3rem;line-height:1.3;
 }
 .edu-desc {
-  font-family:var(--mono);font-size:.75rem;
-  color:var(--muted);line-height:1.6;
+  font-family:var(--mono);font-size:.88rem;
+  color:#a0d8f0;line-height:1.7;
+  font-weight:500;
 }
 .edu-year {
   font-family:var(--pixel);font-size:.28rem;
@@ -1097,8 +1100,9 @@ nav::before {
 }
 .contact-head em { font-style:normal;color:var(--b1);text-shadow:var(--g1) }
 .contact-sub {
-  font-family:var(--mono);font-size:.88rem;
-  color:var(--muted);line-height:1.8;margin-bottom:2rem;
+  font-family:var(--mono);font-size:.95rem;
+  color:#8ec8e8;line-height:1.8;margin-bottom:2rem;
+  font-weight:500;
 }
 
 .contact-links {
@@ -1195,6 +1199,17 @@ footer {
   .nav-links { display:none }
   .nav-status { display:none }
   .hero-stats-strip { gap:1.2rem }
+  /* Mobile text boost */
+  #about .bio-text p,
+  .level-desc,
+  .m-desc,
+  .edu-desc,
+  .contact-sub { font-size:1rem; line-height:1.9; }
+  .unlock-tag,
+  .m-tag,
+  .pu-item { font-size:.32rem; }
+  .spec-key { min-width:90px; font-size:.34rem; }
+  .spec-val { font-size:.38rem; }
 }
 </style>
 </head>
