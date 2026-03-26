@@ -918,6 +918,81 @@ body::before {
 
 /* Stroop combo glow */
 .hud-val.o { color: var(--neon-orange); }
+
+/* ── GAUNTLET & ENGLISH ─────────────────────────────────── */
+.mini-tag {
+  font-family:'Orbitron',sans-serif; font-size:8px; font-weight:700;
+  letter-spacing:1px; padding:3px 8px; border-radius:20px;
+  white-space:nowrap;
+}
+:root { --neon-cyan: #00ffee; }
+.gc.c-cyan { background:var(--bg-card); border-color:rgba(0,255,238,0.3); }
+.gc.c-cyan:active { border-color:var(--neon-cyan); box-shadow:0 0 18px rgba(0,255,238,0.55); }
+.gc.c-cyan::before { background:radial-gradient(circle,rgba(0,255,238,.14),transparent); }
+
+/* Lives row */
+.lives-row {
+  display:flex; align-items:center; justify-content:center;
+  gap:6px; margin-bottom:10px;
+}
+.life { font-size:20px; transition:transform .2s,opacity .2s; }
+.life.lost { opacity:0.2; transform:scale(0.7); filter:grayscale(1); }
+
+/* Round type badge */
+.round-type {
+  text-align:center; padding:6px 16px; border-radius:30px;
+  font-family:'Orbitron',sans-serif; font-size:9px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:10px; display:inline-block;
+  animation:popIn .25s cubic-bezier(.22,1,.36,1);
+}
+.rt-en    { background:rgba(0,255,238,.12); border:1px solid rgba(0,255,238,.4); color:#00ffee; }
+.rt-math  { background:rgba(191,0,255,.12); border:1px solid rgba(191,0,255,.4); color:#bf00ff; }
+.rt-react { background:rgba(0,255,136,.12); border:1px solid rgba(0,255,136,.4); color:#00ff88; }
+.rt-stroop{ background:rgba(255,221,0,.12); border:1px solid rgba(255,221,0,.4); color:#ffdd00; }
+.rt-seq   { background:rgba(0,212,255,.12); border:1px solid rgba(0,212,255,.4); color:#00d4ff; }
+.rt-mem   { background:rgba(255,0,110,.12); border:1px solid rgba(255,0,110,.4); color:#ff006e; }
+
+/* EN Blitz card */
+.en-word {
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(22px,7vw,34px); font-weight:900;
+  text-align:center; padding:22px 12px;
+  background:var(--bg-card); border:1px solid rgba(0,255,238,.25);
+  border-radius:var(--radius); margin-bottom:10px;
+  color:var(--neon-cyan); text-shadow:0 0 18px rgba(0,255,238,.5);
+  letter-spacing:2px; line-height:1.25;
+}
+.en-sub {
+  text-align:center; font-size:11px; color:var(--text-secondary);
+  letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;
+}
+.en-input {
+  width:100%; background:var(--bg-card);
+  border:1px solid var(--border-dim); color:var(--text-primary);
+  padding:14px 16px; border-radius:13px;
+  font-family:'Orbitron',sans-serif; font-size:clamp(14px,5vw,18px);
+  letter-spacing:2px; text-align:center; text-transform:uppercase;
+  outline:none; transition:var(--transition); margin-bottom:10px;
+  font-size:max(16px,1.2em);
+}
+.en-input:focus { border-color:var(--neon-cyan); box-shadow:0 0 18px rgba(0,255,238,.3); }
+.en-input.ok   { border-color:var(--neon-green); box-shadow:0 0 14px rgba(0,255,136,.4); }
+.en-input.fail { border-color:var(--neon-pink); animation:shake .3s ease; }
+
+/* Progress track */
+.gauntlet-track {
+  display:flex; gap:3px; padding:0 2px; margin-bottom:12px; flex-wrap:nowrap; overflow:hidden;
+}
+.track-seg {
+  flex:1; height:5px; border-radius:3px;
+  background:rgba(255,255,255,.07);
+  transition:background .3s;
+  min-width:0;
+}
+.track-seg.done   { background:var(--neon-green); }
+.track-seg.active { background:var(--neon-yellow); animation:glowPulse 1s ease infinite; }
+.track-seg.fail   { background:var(--neon-pink); }
 </style>
 </head>
 <body class="no-select">
@@ -967,6 +1042,46 @@ body::before {
     <div class="gc c-purple" onclick="startGame('stroop')">   <div class="dot"></div><span class="gc-emoji">🎨</span><div class="gc-name">Stroop Effect</div>  <div class="gc-best" id="b-stroop">—</div><div class="gc-diff-bar" id="db-stroop"></div></div>
     <div class="gc c-green"  onclick="startGame('pattern')">  <div class="dot"></div><span class="gc-emoji">📐</span><div class="gc-name">Seq. Pattern</div>   <div class="gc-best" id="b-pattern">—</div><div class="gc-diff-bar" id="db-pattern"></div></div>
     <div class="gc c-pink"   onclick="startGame('target')">   <div class="dot"></div><span class="gc-emoji">🎯</span><div class="gc-name">Click Target</div>   <div class="gc-best" id="b-target">—</div><div class="gc-diff-bar" id="db-target"></div></div>
+  </div>
+
+  <!-- SPECIAL ENGLISH GAME -->
+  <div class="section-label" style="color:var(--neon-cyan);text-shadow:0 0 8px rgba(0,255,238,0.5);">🇬🇧 English Learning</div>
+  <div style="padding:0 16px 10px;">
+    <div class="gc c-cyan special-card" onclick="startGame('english')" style="display:flex;align-items:center;gap:14px;text-align:left;padding:18px 16px;border-color:rgba(0,255,238,0.4);">
+      <div class="dot" style="background:var(--neon-cyan);box-shadow:0 0 8px var(--neon-cyan);position:static;width:7px;height:7px;border-radius:50%;flex-shrink:0;animation:glowPulse 2s ease infinite;"></div>
+      <span style="font-size:36px;flex-shrink:0;">🇬🇧</span>
+      <div>
+        <div class="gc-name" style="font-size:13px;color:var(--neon-cyan);margin-bottom:4px;">ENGLISH BLITZ</div>
+        <div style="font-size:10px;color:var(--text-secondary);letter-spacing:1px;">Vocabulary · Grammar · Idioms · Translation</div>
+        <div class="gc-best" id="b-english" style="margin-top:5px;">—</div>
+      </div>
+      <div class="gc-diff-bar" id="db-english" style="background:linear-gradient(90deg,var(--neon-cyan),var(--neon-purple));"></div>
+    </div>
+  </div>
+
+  <!-- MEGA GAUNTLET -->
+  <div class="section-label" style="color:var(--neon-pink);text-shadow:0 0 8px rgba(255,0,110,0.5);">🌀 Modo Arcade Especial</div>
+  <div style="padding:0 16px 16px;">
+    <div class="gc c-pink special-gauntlet" onclick="startGame('gauntlet')" style="padding:20px 16px;border-color:rgba(255,0,110,0.5);background:linear-gradient(135deg,rgba(255,0,110,0.08),rgba(191,0,255,0.06));">
+      <div class="dot" style="background:var(--neon-pink);box-shadow:0 0 8px var(--neon-pink);"></div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <span style="font-size:40px;">🌀</span>
+        <div>
+          <div class="gc-name" style="font-size:15px;color:var(--neon-pink);letter-spacing:2px;">BRAIN GAUNTLET</div>
+          <div style="font-size:10px;color:var(--text-secondary);margin-top:3px;letter-spacing:1px;">MEZCLA TOTAL · ENDLESS · LIVES SYSTEM</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+        <span class="mini-tag" style="background:rgba(0,212,255,.15);border:1px solid rgba(0,212,255,.3);color:#00d4ff;">🔢 Math</span>
+        <span class="mini-tag" style="background:rgba(0,255,136,.15);border:1px solid rgba(0,255,136,.3);color:#00ff88;">⚡ Reaction</span>
+        <span class="mini-tag" style="background:rgba(255,221,0,.15);border:1px solid rgba(255,221,0,.3);color:#ffdd00;">🎮 Simon</span>
+        <span class="mini-tag" style="background:rgba(191,0,255,.15);border:1px solid rgba(191,0,255,.3);color:#bf00ff;">🎨 Stroop</span>
+        <span class="mini-tag" style="background:rgba(0,255,238,.15);border:1px solid rgba(0,255,238,.3);color:#00ffee;">🇬🇧 English</span>
+        <span class="mini-tag" style="background:rgba(255,102,0,.15);border:1px solid rgba(255,102,0,.3);color:#ff6600;">🔤 Words</span>
+      </div>
+      <div class="gc-best" id="b-gauntlet" style="font-size:12px;">—</div>
+      <div class="gc-diff-bar" id="db-gauntlet" style="background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple),var(--neon-cyan));"></div>
+    </div>
   </div>
 
   <button class="nav-btn" onclick="showStats()">📊 &nbsp;ESTADÍSTICAS Y RÉCORDS</button>
@@ -1024,7 +1139,9 @@ const GAME_INFO = {
   numbers:  {name:'Speed Numbers',  emoji:'🔢', color:'#00d4ff'},
   stroop:   {name:'Stroop Effect',  emoji:'🎨', color:'#bf00ff'},
   pattern:  {name:'Seq. Pattern',   emoji:'📐', color:'#00ff88'},
-  target:   {name:'Click Target',   emoji:'🎯', color:'#ff006e'}
+  target:   {name:'Click Target',   emoji:'🎯', color:'#ff006e'},
+  gauntlet: {name:'Brain Gauntlet',  emoji:'🌀', color:'#00ffee'},
+  english:  {name:'English Blitz',   emoji:'🇬🇧', color:'#bf00ff'}
 };
 
 /* ============================================================
@@ -2355,6 +2472,472 @@ GAMES.target = function() {
 
   function setMsg(id,type,txt){ const m=$(id);if(m){m.className=`msg ${type}`;m.textContent=txt;} }
   addT(setTimeout(spawn,400));
+};
+
+
+/* ═══════════════════════════════════════════════════════════
+   11. ENGLISH BLITZ — Vocabulary, Grammar, Idioms
+   Lvl5-6: ES↔EN translate + fill-blank.
+   Lvl7-8: synonyms/antonyms + phrasal verbs.
+   Lvl9-10: idioms + definitions + word-formation
+═══════════════════════════════════════════════════════════ */
+GAMES.english = function() {
+  const area = $('game-area');
+  const lvl  = S.level;
+  const total = lvl <= 6 ? 10 : lvl <= 8 ? 12 : 15;
+  const timeLimit = Math.max(5, (14 - lvl * 0.8) * getDiffCfg().timeMulti);
+  let answered = 0, timerI = null;
+
+  // ── DATA BANK ────────────────────────────────────────────
+  const TRANSLATE = [
+    // format: {es, en, hint}
+    {es:'RÁPIDO',    en:'FAST',      hint:'Speed'},
+    {es:'LENTO',     en:'SLOW',      hint:'Opposite of fast'},
+    {es:'FUERTE',    en:'STRONG',    hint:'Power'},
+    {es:'DÉBIL',     en:'WEAK',      hint:'Not strong'},
+    {es:'GRANDE',    en:'BIG',       hint:'Size'},
+    {es:'PEQUEÑO',   en:'SMALL',     hint:'Tiny'},
+    {es:'ALTO',      en:'TALL',      hint:'Height'},
+    {es:'CORTO',     en:'SHORT',     hint:'Not tall'},
+    {es:'BRILLANTE', en:'BRIGHT',    hint:'Shining'},
+    {es:'OSCURO',    en:'DARK',      hint:'No light'},
+    {es:'CALIENTE',  en:'HOT',       hint:'High temp'},
+    {es:'FRÍO',      en:'COLD',      hint:'Low temp'},
+    {es:'HAMBRE',    en:'HUNGRY',    hint:'Need food'},
+    {es:'CANSADO',   en:'TIRED',     hint:'Need sleep'},
+    {es:'FELIZ',     en:'HAPPY',     hint:'Joyful'},
+    {es:'TRISTE',    en:'SAD',       hint:'Unhappy'},
+    {es:'ENOJADO',   en:'ANGRY',     hint:'Mad'},
+    {es:'MIEDO',     en:'AFRAID',    hint:'Scared'},
+    {es:'BONITO',    en:'BEAUTIFUL', hint:'Attractive'},
+    {es:'FEO',       en:'UGLY',      hint:'Not pretty'},
+    {es:'INTELIGENTE',en:'SMART',    hint:'Clever'},
+    {es:'ESTUPIDO',  en:'STUPID',    hint:'Not smart'},
+    {es:'AMABLE',    en:'KIND',      hint:'Friendly'},
+    {es:'GROSERO',   en:'RUDE',      hint:'Impolite'},
+    {es:'VALIENTE',  en:'BRAVE',     hint:'Courageous'},
+  ];
+
+  const FILL_BLANK = [
+    {q:'The cat is ___ the table.',   ans:'ON',    opts:['ON','IN','AT','UNDER'],  hint:'Surface contact'},
+    {q:'She ___ eating lunch now.',   ans:'IS',    opts:['IS','ARE','AM','BE'],    hint:'Present continuous'},
+    {q:'I ___ go to the gym daily.',  ans:'WILL',  opts:['WILL','DO','CAN','MAY'], hint:'Future intention'},
+    {q:'They arrived ___ Monday.',    ans:'ON',    opts:['ON','IN','AT','BY'],     hint:'Days use ON'},
+    {q:'He is ___ than his brother.', ans:'TALLER',opts:['TALLER','TALLEST','TALL','MORE TALL'],hint:'Comparative'},
+    {q:'___ you speak English?',      ans:'CAN',   opts:['CAN','DO','ARE','HAVE'],  hint:'Ability'},
+    {q:'We ___ been here for hours.', ans:'HAVE',  opts:['HAVE','HAS','HAD','ARE'], hint:'Present perfect'},
+    {q:'She goes ___ work by bus.',   ans:'TO',    opts:['TO','AT','IN','ON'],     hint:'Direction'},
+    {q:'It is ___ coldest day ever.', ans:'THE',   opts:['THE','A','AN','—'],      hint:'Superlative article'},
+    {q:'I ___ like spicy food.',      ans:"DON'T",  opts:["DON'T","DOESN'T","AM NOT","ISN'T"], hint:'Negation'},
+    {q:'They ___ here since 2010.',   ans:'HAVE BEEN',opts:['HAVE BEEN','ARE','WERE','HAD'],hint:'Duration'},
+    {q:'___ is she? — She is fine.',  ans:'HOW',   opts:['HOW','WHAT','WHO','WHERE'],hint:'Greeting question'},
+  ];
+
+  const SYNONYM = [
+    {word:'ANGRY',     syn:'FURIOUS',   anti:'CALM',    type:'syn'},
+    {word:'BRAVE',     syn:'COURAGEOUS',anti:'COWARD',  type:'syn'},
+    {word:'SMART',     syn:'CLEVER',    anti:'FOOLISH', type:'syn'},
+    {word:'FAST',      syn:'RAPID',     anti:'SLOW',    type:'anti'},
+    {word:'HAPPY',     syn:'JOYFUL',    anti:'MISERABLE',type:'syn'},
+    {word:'HUGE',      syn:'ENORMOUS',  anti:'TINY',    type:'syn'},
+    {word:'DIFFICULT', syn:'HARD',      anti:'EASY',    type:'anti'},
+    {word:'BEAUTIFUL', syn:'GORGEOUS',  anti:'HIDEOUS', type:'syn'},
+    {word:'RICH',      syn:'WEALTHY',   anti:'POOR',    type:'anti'},
+    {word:'NOISY',     syn:'LOUD',      anti:'QUIET',   type:'anti'},
+  ];
+
+  const PHRASAL = [
+    {q:'To GIVE UP means...',          ans:'QUIT',       opts:['QUIT','CONTINUE','IMPROVE','START']},
+    {q:'To LOOK FORWARD means...',     ans:'ANTICIPATE', opts:['ANTICIPATE','REGRET','FORGET','MISS']},
+    {q:'To BREAK DOWN means...',       ans:'COLLAPSE',   opts:['COLLAPSE','BUILD','REPAIR','START']},
+    {q:'To WORK OUT means...',         ans:'EXERCISE',   opts:['EXERCISE','SLEEP','EAT','QUIT']},
+    {q:'To TURN DOWN means...',        ans:'REJECT',     opts:['REJECT','ACCEPT','INCREASE','START']},
+    {q:'To SHOW OFF means...',         ans:'BOAST',      opts:['BOAST','HIDE','HELP','LEARN']},
+    {q:'To RUN INTO means...',         ans:'ENCOUNTER',  opts:['ENCOUNTER','AVOID','CALL','FOLLOW']},
+    {q:'To BACK OUT means...',         ans:'WITHDRAW',   opts:['WITHDRAW','COMMIT','JOIN','ADVANCE']},
+  ];
+
+  const IDIOMS = [
+    {q:'"Bite the bullet" means…',        ans:'ENDURE',      opts:['ENDURE','ESCAPE','ARGUE','CELEBRATE']},
+    {q:'"Hit the sack" means…',           ans:'SLEEP',       opts:['SLEEP','EAT','WORK','FIGHT']},
+    {q:'"Break a leg" means…',            ans:'GOOD LUCK',   opts:['GOOD LUCK','BE CAREFUL','HURRY','QUIT']},
+    {q:'"Under the weather" means…',      ans:'SICK',        opts:['SICK','HAPPY','BUSY','LOST']},
+    {q:'"Spill the beans" means…',        ans:'REVEAL',      opts:['REVEAL','HIDE','EAT','SLEEP']},
+    {q:'"Costs an arm and a leg" means…', ans:'VERY EXPENSIVE',opts:['VERY EXPENSIVE','FREE','PAINFUL','BROKEN']},
+    {q:'"Hit the nail on the head" means…',ans:'EXACTLY RIGHT',opts:['EXACTLY RIGHT','MISS','HURT','BUILD']},
+    {q:'"Once in a blue moon" means…',    ans:'RARELY',      opts:['RARELY','ALWAYS','NEVER','DAILY']},
+  ];
+
+  // ── QUESTION GENERATOR ──────────────────────────────────
+  function makeQuestion() {
+    const pool = [];
+    // Always add translate (lower levels)
+    pool.push({ type: 'translate' });
+    // fill-blank available all levels
+    pool.push({ type: 'fill' });
+    // synonyms/antonyms from lvl 6+
+    if (lvl >= 6) pool.push({ type: 'synonym' });
+    // phrasal from lvl 7+
+    if (lvl >= 7) { pool.push({ type: 'phrasal' }); }
+    // idioms from lvl 8+
+    if (lvl >= 8) { pool.push({ type: 'idiom' }); pool.push({ type: 'idiom' }); }
+
+    const type = pick(pool).type;
+
+    if (type === 'translate') {
+      const item = pick(TRANSLATE);
+      const dir  = rand(0,1) === 0; // 0=ES→EN, 1=EN→ES
+      const q    = dir ? `¿How do you say "${item.es}" in English?` : `¿How do you say "${item.en}" in Spanish?`;
+      const ans  = dir ? item.en : item.es;
+      // build wrong opts from pool
+      const wrongs = TRANSLATE.filter(x => (dir ? x.en : x.es) !== ans)
+        .map(x => dir ? x.en : x.es);
+      const opts = shuffle([ans, ...shuffle(wrongs).slice(0, 3)]);
+      return { q, ans, opts, sub: dir ? '🇪🇸 → 🇬🇧 TRANSLATE' : '🇬🇧 → 🇪🇸 TRADUCIR', type: 'mc' };
+    }
+
+    if (type === 'fill') {
+      const item = pick(FILL_BLANK);
+      return { q: item.q, ans: item.ans, opts: shuffle(item.opts), sub: '✏️ FILL IN THE BLANK', type: 'mc', hint: item.hint };
+    }
+
+    if (type === 'synonym') {
+      const item = pick(SYNONYM);
+      const askSyn = item.type === 'syn';
+      const target = askSyn ? item.syn : item.anti;
+      const q = askSyn ? `Synonym of "${item.word}":` : `Antonym of "${item.word}":`;
+      const wrongs = SYNONYM.filter(x => (askSyn ? x.syn : x.anti) !== target)
+        .map(x => askSyn ? x.syn : x.anti);
+      const opts = shuffle([target, ...shuffle(wrongs).slice(0, 3)]);
+      return { q, ans: target, opts, sub: askSyn ? '🔗 SYNONYM' : '🔀 ANTONYM', type: 'mc' };
+    }
+
+    if (type === 'phrasal') {
+      const item = pick(PHRASAL);
+      return { q: item.q, ans: item.ans, opts: shuffle(item.opts), sub: '🔤 PHRASAL VERB', type: 'mc' };
+    }
+
+    if (type === 'idiom') {
+      const item = pick(IDIOMS);
+      return { q: item.q, ans: item.ans, opts: shuffle(item.opts), sub: '💬 IDIOM', type: 'mc' };
+    }
+  }
+
+  area.innerHTML = `
+    ${makeHUD([`<div class="hud-item"><div class="hud-lbl">RONDA</div><div class="hud-val y" id="en-rnd">0/${total}</div></div>`])}
+    ${levelLabel(lvl)}
+    <div class="msg inf" id="en-msg">¡English Blitz!</div>
+    <div id="en-q-area"></div>
+    <div class="ans-grid" id="en-ans"></div>
+    <div class="prog-wrap"><div class="prog-fill" id="en-prog" style="width:100%;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-purple))"></div></div>`;
+
+  function nextQ() {
+    if (answered >= total) {
+      if (lvl >= getMaxLevel()) setTimeout(() => showGameOver('🇬🇧 ¡English Master!'), 400);
+      else { S.level++; setTimeout(() => GAMES.english(), 400); }
+      return;
+    }
+    const qdata = makeQuestion();
+    let timeLeft = timeLimit;
+    answered++;
+    $('en-rnd').textContent = `${answered}/${total}`;
+
+    $('en-q-area').innerHTML = `
+      <div class="en-sub">${qdata.sub}</div>
+      <div class="en-word" style="font-size:clamp(15px,5vw,22px);padding:18px 12px;">${qdata.q}</div>`;
+
+    $('en-ans').innerHTML = qdata.opts.map(o =>
+      `<button class="ans-btn" onclick="enAns('${o.replace(/'/g,"\\'")}','${qdata.ans.replace(/'/g,"\\'")}',this)">${o}</button>`
+    ).join('');
+
+    clearInterval(timerI);
+    timerI = addT(setInterval(() => {
+      timeLeft -= 0.1;
+      const p = (timeLeft / timeLimit) * 100;
+      const pf = $('en-prog'); if (!pf) return;
+      pf.style.width = Math.max(0, p) + '%';
+      pf.style.background = p > 50 ? 'linear-gradient(90deg,#00ffee,#bf00ff)' : p > 25 ? 'linear-gradient(90deg,#ffdd00,#ff6600)' : 'linear-gradient(90deg,#ff006e,#ff3333)';
+      if (timeLeft <= 0) { clearInterval(timerI); window.enAns('__timeout__', qdata.ans, null, true); }
+    }, 100));
+  }
+
+  window.enAns = function(chosen, correct, btn, timeout = false) {
+    clearInterval(timerI);
+    $$('#en-ans .ans-btn').forEach(b => {
+      b.onclick = null;
+      if (b.textContent === correct) b.classList.add('ok-a');
+      if (!timeout && b.textContent === chosen && chosen !== correct) b.classList.add('bad-a');
+    });
+    if (timeout) {
+      setMsg('en-msg', 'bad', `⏰ Era: ${correct}`);
+      vibrate([100, 50, 100]);
+    } else if (chosen === correct) {
+      const pts = addScore(Math.floor(timeLeft * 8 * lvl) + 30); updateHUDScore();
+      setMsg('en-msg', 'ok', `✓ ${correct}! +${pts}`);
+      vibrate([20, 10, 40]);
+    } else {
+      setMsg('en-msg', 'bad', `✗ Era: ${correct}`);
+      vibrate([80, 40, 80]);
+    }
+    addT(setTimeout(nextQ, 1000));
+  };
+
+  function setMsg(id, type, txt) { const m = $(id); if (m) { m.className = `msg ${type}`; m.textContent = txt; } }
+  let timeLeft = timeLimit; // closure for pts calc
+  nextQ();
+};
+
+/* ═══════════════════════════════════════════════════════════
+   12. BRAIN GAUNTLET — Endless random mix, lives system
+   Randomly picks from: math, reaction, stroop, pattern,
+   english-translate, english-fill, english-idiom,
+   word-scramble-en, simon-flash, memory-mini.
+   3 lives. Each correct answer = +pts. Escalates every 5 rounds.
+═══════════════════════════════════════════════════════════ */
+GAMES.gauntlet = function() {
+  const area  = $('game-area');
+  const diff  = getDiffCfg();
+  const TOTAL_SEGMENTS = 30; // track length shown
+  let round = 0, lives = 3, combo = 0, timerI = null, reactionTimer = null;
+  let trackDone = [], trackActive = 0, trackFailed = [];
+  // Speed escalation: rounds 1-5 = base, 6-10 = faster, 11+ = very fast
+  const getSpeed = () => round <= 5 ? 1.0 : round <= 10 ? 0.75 : round <= 15 ? 0.58 : 0.45;
+
+  // ── English data (inline, condensed) ────────────────────
+  const EN_TR = [
+    ['FAST','RÁPIDO'],['SLOW','LENTO'],['STRONG','FUERTE'],['WEAK','DÉBIL'],
+    ['BIG','GRANDE'],['SMALL','PEQUEÑO'],['HOT','CALIENTE'],['COLD','FRÍO'],
+    ['HAPPY','FELIZ'],['SAD','TRISTE'],['ANGRY','ENOJADO'],['BRAVE','VALIENTE'],
+    ['SMART','INTELIGENTE'],['KIND','AMABLE'],['DARK','OSCURO'],['BRIGHT','BRILLANTE'],
+    ['TIRED','CANSADO'],['HUNGRY','HAMBRE'],['LOUD','RUIDOSO'],['QUIET','SILENCIOSO'],
+    ['RICH','RICO'],['POOR','POBRE'],['SAFE','SEGURO'],['LOST','PERDIDO'],
+  ];
+  const EN_IDIOMS = [
+    {q:'"Hit the sack"',       ans:'SLEEP',   opts:['SLEEP','EAT','WORK','PLAY']},
+    {q:'"Break a leg"',        ans:'GOOD LUCK',opts:['GOOD LUCK','STOP','FIGHT','LEAVE']},
+    {q:'"Bite the bullet"',    ans:'ENDURE',  opts:['ENDURE','ESCAPE','REST','QUIT']},
+    {q:'"Spill the beans"',    ans:'REVEAL',  opts:['REVEAL','HIDE','EAT','COOK']},
+    {q:'"Under the weather"',  ans:'SICK',    opts:['SICK','HAPPY','LOST','TIRED']},
+    {q:'"Once in a blue moon"',ans:'RARELY',  opts:['RARELY','ALWAYS','DAILY','SOON']},
+    {q:'"Costs an arm and a leg"',ans:'EXPENSIVE',opts:['EXPENSIVE','FREE','CHEAP','BROKEN']},
+    {q:'"Kick the bucket"',    ans:'DIE',     opts:['DIE','PLAY','TRAVEL','WIN']},
+    {q:'"Burn bridges"',       ans:'DESTROY RELATIONS',opts:['DESTROY RELATIONS','MAKE FRIENDS','BUILD','TRAVEL']},
+    {q:'"Piece of cake"',      ans:'VERY EASY',opts:['VERY EASY','DELICIOUS','COMPLEX','RARE']},
+  ];
+  const EN_FILL = [
+    {q:'She ___ eating now.',   ans:'IS',    opts:['IS','ARE','AM','BE']},
+    {q:'___ you speak English?',ans:'CAN',   opts:['CAN','DO','ARE','HAVE']},
+    {q:'I go ___ work by bus.', ans:'TO',    opts:['TO','AT','IN','FOR']},
+    {q:'It is ___ best day.',   ans:'THE',   opts:['THE','A','AN','OF']},
+    {q:'They ___ here since 8.', ans:'HAVE BEEN',opts:['HAVE BEEN','ARE','WERE','HAD']},
+    {q:'The cat is ___ the box.',ans:'IN',   opts:['IN','ON','AT','BY']},
+    {q:'He is ___ than she is.', ans:'TALLER',opts:['TALLER','TALLEST','TALL','MORE TALL']},
+    {q:'___ is she? — Fine.',   ans:'HOW',   opts:['HOW','WHAT','WHO','WHERE']},
+  ];
+  const EN_SYN = [
+    {q:'Synonym: ANGRY',    ans:'FURIOUS',   opts:['FURIOUS','CALM','BORED','SCARED']},
+    {q:'Synonym: HAPPY',    ans:'JOYFUL',    opts:['JOYFUL','SAD','TIRED','LOST']},
+    {q:'Antonym: FAST',     ans:'SLOW',      opts:['SLOW','RAPID','QUICK','SPEEDY']},
+    {q:'Synonym: SMART',    ans:'CLEVER',    opts:['CLEVER','SILLY','LAZY','WEAK']},
+    {q:'Antonym: RICH',     ans:'POOR',      opts:['POOR','WEALTHY','LUCKY','KIND']},
+    {q:'Synonym: HUGE',     ans:'ENORMOUS',  opts:['ENORMOUS','TINY','SLIM','SHORT']},
+    {q:'Antonym: BRAVE',    ans:'COWARDLY',  opts:['COWARDLY','BOLD','DARING','HEROIC']},
+    {q:'Synonym: LOUD',     ans:'NOISY',     opts:['NOISY','QUIET','SOFT','GENTLE']},
+  ];
+  const MATH_Q = () => {
+    const sp = getSpeed();
+    const ops = round<=5?['+','-']:round<=10?['+','-','×']:['+','-','×','÷'];
+    const op = pick(ops);
+    let a,b,ans,expr;
+    if(op==='÷'){ans=rand(2,10);b=rand(2,8);a=ans*b;expr=`${a}÷${b}`;}
+    else if(op==='×'){a=rand(2,12);b=rand(2,12);ans=a*b;expr=`${a}×${b}`;}
+    else if(op==='-'){a=rand(10,50);b=rand(1,a);ans=a-b;expr=`${a}-${b}`;}
+    else{a=rand(5,40);b=rand(5,40);ans=a+b;expr=`${a}+${b}`;}
+    const wrongs=new Set([ans]);
+    while(wrongs.size<4){const d=rand(1,Math.max(3,Math.ceil(Math.abs(ans)*.2)));const w=ans+pick([-d,d,-d*2,d*2]);if(w!==ans)wrongs.add(w);}
+    return {q:expr+' = ?',ans,opts:shuffle([...wrongs]),sub:'🔢 MATH FLASH',tl:Math.max(3,(8-round*0.3)*sp)};
+  };
+  const STROOP_Q = () => {
+    const COLS=[{n:'RED',h:'#ff4466'},{n:'GREEN',h:'#44ff77'},{n:'BLUE',h:'#4488ff'},{n:'YELLOW',h:'#ffee55'},{n:'PURPLE',h:'#cc44ff'}];
+    const ink=pick(COLS);
+    const word=pick(COLS.filter(c=>c.n!==ink.n));
+    return {ink,word,opts:shuffle(COLS),sub:'🎨 STROOP — TAP THE INK COLOR',tl:Math.max(2,(5-round*0.1)*getSpeed())};
+  };
+  const PAT_Q = () => {
+    const s=rand(1,12),d=rand(2,8);
+    const seq=Array.from({length:4},(_,i)=>s+i*d);
+    const ans=seq[3]+d;
+    const wrongs=new Set([ans]);
+    while(wrongs.size<4){const w=ans+rand(1,10)*pick([-1,1]);if(w!==ans)wrongs.add(w);}
+    return {seq:seq.slice(0,3),ans,opts:shuffle([...wrongs]),sub:'📐 NEXT IN SEQUENCE'};
+  };
+
+  // ── RENDER HELPERS ───────────────────────────────────────
+  function renderShell(subBadgeClass, subBadgeTxt) {
+    const livesHtml = [0,1,2].map(i=>`<span class="life${i>=lives?' lost':''}" id="life${i}">❤️</span>`).join('');
+    const trackHtml = Array.from({length:TOTAL_SEGMENTS},(_,i)=>{
+      let cls='track-seg';
+      if(trackFailed.includes(i)) cls+=' fail';
+      else if(trackDone.includes(i)) cls+=' done';
+      else if(i===trackActive) cls+=' active';
+      return `<div class="${cls}"></div>`;
+    }).join('');
+    return `
+      <div class="hud">
+        <div class="hud-item"><div class="hud-lbl">RONDA</div><div class="hud-val y">${round}</div></div>
+        <div class="hud-sep"></div>
+        <div class="hud-item"><div class="hud-lbl">COMBO</div><div class="hud-val o">${combo}x</div></div>
+        <div class="hud-sep"></div>
+        <div class="hud-item"><div class="hud-lbl">PUNTOS</div><div class="hud-val">${S.score}</div></div>
+      </div>
+      <div class="lives-row">${livesHtml}</div>
+      <div class="gauntlet-track">${trackHtml}</div>
+      <div style="text-align:center;margin-bottom:8px;"><span class="round-type ${subBadgeClass}">${subBadgeTxt}</span></div>`;
+  }
+
+  function loseLife(msg) {
+    combo = 0;
+    lives--;
+    vibrate([100, 60, 100]);
+    // flash red on a life
+    const lel = $(`life${lives}`);
+    if (lel) lel.classList.add('lost');
+    trackFailed.push(trackActive);
+    if (lives <= 0) {
+      clearInterval(timerI);
+      setTimeout(() => showGameOver(`🌀 ${round-1} rondas · 3 vidas agotadas`), 500);
+    } else {
+      trackActive = round;
+      addT(setTimeout(nextChallenge, 900));
+    }
+  }
+
+  // ── CHALLENGE DISPATCHER ────────────────────────────────
+  function nextChallenge() {
+    if (!S.active) return;
+    clearInterval(timerI);
+    round++;
+    trackDone.push(trackActive - 1);
+    trackActive = round - 1;
+
+    // Pick challenge type based on round
+    const types = ['math','math','stroop','pattern','en-tr','en-fill'];
+    if (round > 5)  types.push('en-idiom','en-syn');
+    if (round > 10) types.push('en-idiom','en-idiom','stroop');
+    if (round > 15) types.push('math','en-syn','en-fill');
+
+    const type = pick(types);
+    if      (type === 'math')     showMath();
+    else if (type === 'stroop')   showStroop();
+    else if (type === 'pattern')  showPattern();
+    else if (type === 'en-tr')    showEnTr();
+    else if (type === 'en-fill')  showEnFill();
+    else if (type === 'en-idiom') showEnIdiom();
+    else if (type === 'en-syn')   showEnSyn();
+  }
+
+  // ── CHALLENGE RENDERERS ──────────────────────────────────
+  function startTimer(tl, onTimeout) {
+    let t = tl;
+    const id = addT(setInterval(() => {
+      t -= 0.1;
+      const prog = $('gt-prog');
+      if (prog) {
+        const p = (t / tl) * 100;
+        prog.style.width = Math.max(0, p) + '%';
+        prog.style.background = p > 50 ? 'linear-gradient(90deg,#00d4ff,#00ff88)' : p > 25 ? 'linear-gradient(90deg,#ffdd00,#ff6600)' : 'linear-gradient(90deg,#ff006e,#ff3333)';
+      }
+      if (t <= 0) { clearInterval(id); onTimeout(); }
+    }, 100));
+    timerI = id;
+  }
+
+  function mcArea(shell, question, opts, correctVal, subLbl, tl, isStroop) {
+    area.innerHTML = shell + `
+      <div class="msg inf" id="gt-msg">${subLbl}</div>
+      ${isStroop
+        ? `<div class="stroop-word" style="color:${question.ink};font-size:clamp(28px,8vw,44px);margin-bottom:10px;">${question.word}</div>`
+        : `<div class="en-word">${question.text||question}</div>`}
+      <div class="ans-grid" id="gt-opts"></div>
+      <div class="prog-wrap"><div class="prog-fill" id="gt-prog" style="width:100%;background:linear-gradient(90deg,#00d4ff,#00ff88)"></div></div>`;
+
+    const optsEl = $('gt-opts');
+    opts.forEach(o => {
+      const btn = document.createElement('button');
+      btn.className = 'ans-btn';
+      btn.textContent = isStroop ? o.n : String(o);
+      btn.onclick = () => {
+        clearInterval(timerI);
+        $$('#gt-opts .ans-btn').forEach(b => { b.onclick = b.ontouchend = null; });
+        const isOk = isStroop ? (o.h === correctVal) : (String(o) === String(correctVal));
+        $$('#gt-opts .ans-btn').forEach(b => {
+          const bVal = isStroop ? b.textContent : b.textContent;
+          const correctTxt = isStroop ? opts.find(x => x.h === correctVal)?.n : String(correctVal);
+          if (b.textContent === correctTxt) b.classList.add('ok-a');
+          if (!isOk && b === btn) b.classList.add('bad-a');
+        });
+        if (isOk) {
+          const pts = addScore(25 + combo * 5 + round * 2);
+          combo++;
+          setGtMsg('ok', `✓ +${pts} · COMBO ×${combo}`);
+          vibrate([20, 10, 40]);
+        } else {
+          loseLife(`✗`);
+          setGtMsg('bad', `✗ Era: ${isStroop ? opts.find(x=>x.h===correctVal)?.n : correctVal}`);
+        }
+        addT(setTimeout(nextChallenge, 900));
+      };
+      btn.ontouchend = e => { e.preventDefault(); btn.onclick(); };
+      optsEl.appendChild(btn);
+    });
+    startTimer(tl, () => { loseLife('⏰ Tiempo!'); setGtMsg('bad', '⏰ ¡Tiempo!'); addT(setTimeout(nextChallenge, 700)); });
+  }
+
+  function setGtMsg(type, txt) { const m = $('gt-msg'); if (m) { m.className = `msg ${type}`; m.textContent = txt; } }
+
+  function showMath() {
+    const q = MATH_Q();
+    mcArea(renderShell('rt-math', '🔢 MATH FLASH'),
+      { text: q.q }, q.opts, q.ans, '¡Responde rápido!', q.tl, false);
+  }
+  function showStroop() {
+    const q = STROOP_Q();
+    mcArea(renderShell('rt-stroop', '🎨 STROOP EFFECT'),
+      { ink: q.ink.h, word: q.word.n }, q.opts, q.ink.h, 'TAP the INK COLOR', q.tl, true);
+  }
+  function showPattern() {
+    const q = PAT_Q();
+    mcArea(renderShell('rt-seq', '📐 SEQUENCE'),
+      { text: q.seq.join(' → ') + ' → ?' }, q.opts, q.ans, '¿Cuál sigue?', Math.max(4, 7 * getSpeed()), false);
+  }
+  function showEnTr() {
+    const item = pick(EN_TR);
+    const dir  = rand(0, 1) === 0;
+    const q    = dir ? `🇪🇸 "${item[1]}" in English?` : `🇬🇧 "${item[0]}" en español?`;
+    const ans  = dir ? item[0] : item[1];
+    const wrongs = EN_TR.filter(x => (dir ? x[0] : x[1]) !== ans).map(x => dir ? x[0] : x[1]);
+    const opts = shuffle([ans, ...shuffle(wrongs).slice(0, 3)]);
+    mcArea(renderShell('rt-en', dir ? '🇪🇸→🇬🇧 TRANSLATE' : '🇬🇧→🇪🇸 TRADUCIR'),
+      { text: q }, opts, ans, '¿Cuál es la traducción?', Math.max(5, 9 * getSpeed()), false);
+  }
+  function showEnFill() {
+    const item = pick(EN_FILL);
+    mcArea(renderShell('rt-en', '✏️ FILL THE BLANK'),
+      { text: item.q }, shuffle(item.opts), item.ans, '¿Qué palabra falta?', Math.max(5, 9 * getSpeed()), false);
+  }
+  function showEnIdiom() {
+    const item = pick(EN_IDIOMS);
+    mcArea(renderShell('rt-en', '💬 IDIOM'),
+      { text: item.q + ' means…' }, shuffle(item.opts), item.ans, 'English idiom — ¿qué significa?', Math.max(5, 8 * getSpeed()), false);
+  }
+  function showEnSyn() {
+    const item = pick(EN_SYN);
+    mcArea(renderShell('rt-en', item.q.includes('Antonym') ? '🔀 ANTONYM' : '🔗 SYNONYM'),
+      { text: item.q }, shuffle(item.opts), item.ans, item.q, Math.max(5, 8 * getSpeed()), false);
+  }
+
+  // ── BOOT ────────────────────────────────────────────────
+  nextChallenge();
 };
 
 /* ============================================================
