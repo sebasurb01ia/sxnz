@@ -256,6 +256,7 @@
   .filter-btn[data-cat="dev"]     { color: var(--purple); border-color: var(--purple); }
   .filter-btn[data-cat="games"]   { color: var(--pink);   border-color: var(--pink);   }
   .filter-btn[data-cat="finance"] { color: var(--orange); border-color: var(--orange); }
+  .filter-btn[data-cat="paginas"] { color: var(--blue); border-color: var(--blue); }
 
   .filter-btn.active {
     box-shadow: 0 0 14px currentColor;
@@ -301,12 +302,14 @@
   .app-card[data-cat="dev"]     { border-top: 3px solid var(--purple); }
   .app-card[data-cat="games"]   { border-top: 3px solid var(--pink);   }
   .app-card[data-cat="finance"] { border-top: 3px solid var(--orange); }
+  .app-card[data-cat="paginas"] { border-top: 3px solid var(--blue); }
 
   .app-card[data-cat="tools"]:hover   { box-shadow: 0 8px 30px rgba(57,255,20,0.25);   }
   .app-card[data-cat="org"]:hover     { box-shadow: 0 8px 30px rgba(255,238,0,0.25);    }
   .app-card[data-cat="dev"]:hover     { box-shadow: 0 8px 30px rgba(191,0,255,0.25);    }
   .app-card[data-cat="games"]:hover   { box-shadow: 0 8px 30px rgba(255,0,110,0.25);    }
   .app-card[data-cat="finance"]:hover { box-shadow: 0 8px 30px rgba(255,102,0,0.25);    }
+  .app-card[data-cat="paginas"]:hover { box-shadow: 0 8px 30px rgba(255,102,0,0.25);    }
 
   /* COMING SOON overlay */
   .app-card.coming-soon::after {
@@ -349,6 +352,7 @@
   .app-card[data-cat="dev"]     .card-icon { border-color: var(--purple); color: var(--purple); }
   .app-card[data-cat="games"]   .card-icon { border-color: var(--pink);   color: var(--pink);   }
   .app-card[data-cat="finance"] .card-icon { border-color: var(--orange); color: var(--orange); }
+  .app-card[data-cat="paginas"] .card-icon { border-color: var(--orange); color: var(--orange); }
 
   /* pixel corner decorations */
   .card-icon::before,
@@ -378,6 +382,7 @@
   .app-card[data-cat="dev"]     .card-name { color: var(--purple); }
   .app-card[data-cat="games"]   .card-name { color: var(--pink);   }
   .app-card[data-cat="finance"] .card-name { color: var(--orange); }
+  .app-card[data-cat="paginas"] .card-name { color: var(--orange); }
 
   .card-cat-tag {
     font-family: 'Press Start 2P', monospace;
@@ -393,6 +398,7 @@
   .app-card[data-cat="dev"]     .card-cat-tag { color: var(--purple); border-color: var(--purple); }
   .app-card[data-cat="games"]   .card-cat-tag { color: var(--pink);   border-color: var(--pink);   }
   .app-card[data-cat="finance"] .card-cat-tag { color: var(--orange); border-color: var(--orange); }
+    .app-card[data-cat="paginas"] .card-cat-tag { color: var(--orange); border-color: var(--orange); }
 
   .card-desc {
     font-size: 11px;
@@ -452,6 +458,7 @@
   .app-card[data-cat="dev"]     .launch-btn { background: var(--purple); color: #fff; }
   .app-card[data-cat="games"]   .launch-btn { background: var(--pink);   color: #fff; }
   .app-card[data-cat="finance"] .launch-btn { background: var(--orange); color: #000; }
+    .app-card[data-cat="paginas"] .launch-btn { background: var(--orange); color: #000; }
 
   .launch-btn:hover {
     filter: brightness(1.2);
@@ -725,7 +732,23 @@
     </div>
   </div>
 
-  
+    <!-- ── JPAGINAS ── -->
+  <div class="app-card " data-cat="games" data-name="Juegos Arcade Games" data-url="delifit.html">
+    <div class="card-header">
+      <div class="card-icon">🕹</div>
+      <div class="card-info">
+        <div class="card-name">delifit</div>
+        <div class="card-cat-tag">paginas</div>
+      </div>
+    </div>
+    <div class="card-desc">DEMO PAGINAS</div>
+    <div class="card-footer">
+      <div class="card-status online-text"><span class="status-dot online"></span>EN LÍNEA</div>
+<button class="launch-btn">▶ ABRIR</button>
+    </div>
+  </div>
+
+
   <!-- ── JUEGOS 3D ── -->
   <div class="app-card " data-cat="games" data-name="Juegos Arcade Games" data-url="doom.html">
     <div class="card-header">
