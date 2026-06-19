@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deli Fit — Saludable & Delicioso</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fucsia: #E8005A;
+    --fucsia-light: #FF2272;
+    --rosa: #F9A8C9;
+    --rosa-pale: #FFF0F6;
+    --amarillo: #FFD94A;
+    --negro: #1A1A1A;
+    --blanco: #FFF8F5;
+    --gris: #6B6B6B;
+    --verde: #4CAF50;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--blanco);
+    color: var(--negro);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    background: rgba(255,248,245,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--rosa);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 1.5rem;
+    color: var(--fucsia);
+    text-decoration: none;
+  }
+
+  .logo-circle {
+    width: 40px; height: 40px;
+    border: 3px solid var(--fucsia);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .nav-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; font-size: 0.95rem;
+    color: var(--negro);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--fucsia); }
+
+  .nav-cta {
+    background: var(--fucsia);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 50px;
+    transition: transform 0.2s, background 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--fucsia-light) !important;
+    transform: scale(1.05);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 32px 60px;
+    background: linear-gradient(135deg, var(--rosa-pale) 0%, var(--blanco) 60%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--rosa) 0%, transparent 70%);
+    opacity: 0.3;
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, var(--amarillo) 0%, transparent 70%);
+    opacity: 0.25;
+    border-radius: 50%;
+  }
+
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--fucsia);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.8rem;
+    padding: 6px 14px; border-radius: 50px;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 3.4rem;
+    line-height: 1.1;
+    color: var(--negro);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 span {
+    color: var(--fucsia);
+    position: relative;
+  }
+
+  .hero h1 span::after {
+    content: '';
+    position: absolute; bottom: 2px; left: 0; right: 0;
+    height: 4px;
+    background: var(--amarillo);
+    border-radius: 2px;
+  }
+
+  .hero p {
+    font-size: 1.1rem; color: var(--gris);
+    line-height: 1.7; margin-bottom: 32px;
+    max-width: 440px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--fucsia);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    padding: 14px 32px; border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(232,0,90,0.35);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(232,0,90,0.45);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--fucsia);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1rem;
+    padding: 14px 32px; border-radius: 50px;
+    border: 2.5px solid var(--fucsia);
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-secondary:hover {
+    background: var(--fucsia);
+    color: white;
+  }
+
+  /* Parfait illustration */
+  .hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+
+  .parfait-stack {
+    width: 240px; height: 340px;
+    position: relative; margin: 0 auto;
+  }
+
+  .cup {
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 280px;
+  }
+
+  .cup-body {
+    position: absolute; bottom: 0;
+    width: 100%; height: 220px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(249,168,201,0.4) 100%);
+    border: 3px solid var(--fucsia);
+    border-radius: 0 0 30px 30px;
+    overflow: hidden;
+  }
+
+  .layer {
+    position: absolute; left: 0; right: 0;
+    animation: layerIn 0.6s ease-out both;
+  }
+
+  .layer-mora {
+    bottom: 0; height: 50px;
+    background: linear-gradient(180deg, #C0205A 0%, #8B0042 100%);
+    animation-delay: 0.1s;
+  }
+
+  .layer-yogurt {
+    bottom: 45px; height: 70px;
+    background: linear-gradient(180deg, #fff 0%, #f0f0f0 100%);
+    animation-delay: 0.3s;
+  }
+
+  .layer-cereal {
+    bottom: 110px; height: 40px;
+    background: linear-gradient(180deg, #D4A843 0%, #B8892E 100%);
+    opacity: 0.85;
+    animation-delay: 0.5s;
+  }
+
+  .layer-frutas {
+    bottom: 145px; height: 55px;
+    background: linear-gradient(180deg, #FFB800 0%, #FF8C00 100%);
+    animation-delay: 0.7s;
+  }
+
+  .cup-dome {
+    position: absolute; top: 0; left: -3px; right: -3px;
+    height: 80px;
+    background: rgba(255,255,255,0.7);
+    border: 3px solid var(--fucsia);
+    border-bottom: none;
+    border-radius: 50% 50% 0 0 / 80px 80px 0 0;
+    overflow: hidden;
+    animation: domeIn 0.5s ease-out 0.9s both;
+  }
+
+  .dome-fruits {
+    position: absolute; bottom: 0;
+    width: 100%; height: 60px;
+    background: linear-gradient(180deg, #FFD94A 0%, #FF8C00 50%, #E8005A 100%);
+    opacity: 0.8;
+  }
+
+  .sticker-badge {
+    position: absolute;
+    width: 80px; height: 80px;
+    background: white;
+    border: 3px solid var(--fucsia);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    bottom: 70px; left: 50%; transform: translateX(-50%);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 0.65rem;
+    color: var(--fucsia);
+    z-index: 5;
+    box-shadow: 0 2px 12px rgba(232,0,90,0.2);
+  }
+
+  .sticker-badge .logo-icon { font-size: 1.2rem; }
+
+  .floating-tag {
+    position: absolute;
+    background: var(--amarillo);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.75rem;
+    padding: 6px 12px; border-radius: 20px;
+    color: var(--negro);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .tag-1 { top: 20px; right: -10px; animation-delay: 0s; }
+  .tag-2 { top: 80px; left: -30px; animation-delay: 0.8s; background: var(--rosa); }
+  .tag-3 { bottom: 30px; right: -20px; animation-delay: 1.4s; background: #c8f7c5; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes layerIn {
+    from { transform: scaleX(0); opacity: 0; }
+    to { transform: scaleX(1); opacity: 1; }
+  }
+
+  @keyframes domeIn {
+    from { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
+    to { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--fucsia);
+    padding: 32px;
+  }
+
+  .stats-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-around;
+    flex-wrap: wrap; gap: 24px;
+  }
+
+  .stat {
+    text-align: center; color: white;
+  }
+
+  .stat-num {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 2.2rem;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.9rem; opacity: 0.9;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+  }
+
+  /* ── PRODUCTS ── */
+  .products {
+    padding: 80px 32px;
+    background: var(--blanco);
+  }
+
+  .section-header {
+    text-align: center; margin-bottom: 56px;
+  }
+
+  .section-eyebrow {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.8rem;
+    color: var(--fucsia);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block; margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 2.4rem;
+    color: var(--negro);
+    line-height: 1.2;
+  }
+
+  .products-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+
+  .product-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2.5px solid transparent;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--fucsia);
+    box-shadow: 0 12px 40px rgba(232,0,90,0.15);
+  }
+
+  .product-img {
+    width: 100%; height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .product-img-placeholder {
+    width: 100%; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+
+  .product-body { padding: 20px 24px 24px; }
+
+  .product-badge {
+    display: inline-block;
+    background: var(--rosa-pale);
+    color: var(--fucsia);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.72rem;
+    padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .product-name {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 1.25rem;
+    color: var(--negro);
+    margin-bottom: 6px;
+  }
+
+  .product-desc {
+    font-size: 0.88rem; color: var(--gris);
+    line-height: 1.6; margin-bottom: 16px;
+  }
+
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .product-order-btn {
+    background: var(--fucsia);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.85rem;
+    padding: 8px 18px; border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .product-order-btn:hover {
+    background: var(--fucsia-light);
+    transform: scale(1.05);
+  }
+
+  .product-emoji { font-size: 1.3rem; }
+
+  /* ── BENEFICIOS YOGURT ── */
+  .benefits {
+    padding: 80px 32px;
+    background: linear-gradient(135deg, var(--rosa-pale) 0%, #fff 100%);
+  }
+
+  .benefits-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+
+  .benefits-visual {
+    display: flex; justify-content: center;
+  }
+
+  .yogurt-container {
+    width: 220px; height: 220px;
+    background: linear-gradient(135deg, #fff 60%, var(--rosa-pale) 100%);
+    border: 4px solid var(--fucsia);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+    box-shadow: 0 0 0 12px var(--rosa-pale), 0 0 0 16px var(--rosa);
+    position: relative;
+  }
+
+  .benefit-pill {
+    position: absolute;
+    background: white;
+    border: 2px solid var(--fucsia);
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; font-size: 0.75rem;
+    padding: 6px 12px;
+    color: var(--negro);
+    white-space: nowrap;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  }
+
+  .bp-1 { top: -10px; left: -60px; }
+  .bp-2 { top: 20px; right: -80px; }
+  .bp-3 { bottom: 20px; right: -70px; }
+  .bp-4 { bottom: -10px; left: -50px; }
+
+  .benefits-content .section-header { text-align: left; margin-bottom: 32px; }
+
+  .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+
+  .benefit-item {
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+
+  .benefit-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: var(--fucsia);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  .benefit-text strong {
+    display: block;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.95rem;
+    color: var(--negro);
+  }
+
+  .benefit-text span {
+    font-size: 0.85rem; color: var(--gris);
+  }
+
+  /* ── WHY ── */
+  .why {
+    padding: 80px 32px;
+    background: var(--negro);
+  }
+
+  .why .section-title { color: white; }
+  .why .section-eyebrow { color: var(--amarillo); }
+
+  .why-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .why-card {
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .why-card:hover {
+    background: rgba(232,0,90,0.15);
+    border-color: var(--fucsia);
+  }
+
+  .why-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+
+  .why-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1.05rem;
+    color: white; margin-bottom: 8px;
+  }
+
+  .why-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* ── TESTIMONIO ── */
+  .testimonial {
+    padding: 80px 32px;
+    background: var(--blanco);
+  }
+
+  .testimonial-inner {
+    max-width: 900px; margin: 0 auto;
+    background: var(--rosa-pale);
+    border: 2.5px solid var(--rosa);
+    border-radius: 32px;
+    padding: 56px 48px;
+    text-align: center;
+    position: relative;
+  }
+
+  .quote-mark {
+    font-family: 'Nunito', sans-serif;
+    font-size: 6rem; line-height: 0.5;
+    color: var(--fucsia); opacity: 0.3;
+    position: absolute; top: 30px; left: 40px;
+  }
+
+  .testimonial blockquote {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; font-size: 1.4rem;
+    color: var(--negro); line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+
+  .testimonial-author {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.9rem;
+    color: var(--fucsia);
+  }
+
+  /* ── CTA PEDIDO ── */
+  .order-cta {
+    padding: 80px 32px;
+    background: linear-gradient(135deg, var(--fucsia) 0%, #C0005A 100%);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+
+  .order-cta::before {
+    content: '🍓🥭🍌🍇🫐';
+    position: absolute; top: -20px; left: 0; right: 0;
+    font-size: 4rem; opacity: 0.1;
+    letter-spacing: 40px;
+    white-space: nowrap;
+  }
+
+  .order-cta h2 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 2.6rem;
+    color: white; margin-bottom: 16px;
+    position: relative; z-index: 1;
+  }
+
+  .order-cta p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem; margin-bottom: 36px;
+    position: relative; z-index: 1;
+  }
+
+  .order-btns {
+    display: flex; gap: 16px;
+    justify-content: center; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+
+  .btn-whatsapp {
+    background: #25D366;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    padding: 16px 36px; border-radius: 50px;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.3); }
+
+  .btn-insta {
+    background: white;
+    color: var(--fucsia);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    padding: 16px 36px; border-radius: 50px;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    transition: transform 0.2s;
+  }
+
+  .btn-insta:hover { transform: translateY(-3px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--negro);
+    padding: 48px 32px 32px;
+    color: white;
+  }
+
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900; font-size: 1.8rem;
+    color: var(--fucsia);
+  }
+
+  .footer-tagline {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600; font-size: 0.95rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .footer-contact {
+    display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
+    font-size: 0.9rem; color: rgba(255,255,255,0.7);
+  }
+
+  .footer-contact a { color: var(--rosa); text-decoration: none; }
+  .footer-contact a:hover { color: white; }
+
+  .footer-divider {
+    width: 100%; height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .footer-copy {
+    font-size: 0.8rem; color: rgba(255,255,255,0.35);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+
+    .hero { padding: 90px 20px 50px; }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+    .hero h1 { font-size: 2.4rem; }
+    .hero p { margin: 0 auto 32px; }
+    .hero-btns { justify-content: center; }
+
+    .benefits-inner { grid-template-columns: 1fr; }
+    .benefits .section-header { text-align: center; }
+    .yogurt-container { width: 160px; height: 160px; font-size: 5rem; }
+    .bp-1, .bp-2, .bp-3, .bp-4 { display: none; }
+
+    .testimonial-inner { padding: 36px 24px; }
+    .testimonial blockquote { font-size: 1.1rem; }
+
+    .section-title { font-size: 1.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-circle">🌱</div>
+    Deli Fit
+  </a>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#nosotros">¿Por qué nosotros?</a></li>
+    <li><a href="#pedidos" class="nav-cta">Hacer pedido</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-tag">✨ Artesanal · Saludable · Delicioso</span>
+      <h1>Comer saludable<br>no tiene que ser<br><span>aburrido.</span></h1>
+      <p>Parfaits de yogurt griego, frutas frescas, granola artesanal y mucho amor. Hecho a mano, entregado hasta tu puerta.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/573128839786" target="_blank" class="btn-primary">
+          💬 Pedir por WhatsApp
+        </a>
+        <a href="#productos" class="btn-secondary">
+          Ver menú 🍓
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="parfait-stack">
+        <!-- Floating tags -->
+        <div class="floating-tag tag-1">🥭 Mango fresco</div>
+        <div class="floating-tag tag-2">💪 Alto en proteína</div>
+        <div class="floating-tag tag-3">🌱 100% natural</div>
+
+        <div class="cup">
+          <!-- Dome -->
+          <div class="cup-dome">
+            <div class="dome-fruits"></div>
+          </div>
+          <!-- Body -->
+          <div class="cup-body">
+            <div class="layer layer-mora"></div>
+            <div class="layer layer-yogurt"></div>
+            <div class="layer layer-cereal"></div>
+            <div class="layer layer-frutas"></div>
+          </div>
+          <!-- Sticker -->
+          <div class="sticker-badge">
+            <span class="logo-icon">🌱</span>
+            <span>DELI FIT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Artesanal</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">🍓</span>
+      <span class="stat-label">Frutas frescas diarias</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">0</span>
+      <span class="stat-label">Conservantes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">❤️</span>
+      <span class="stat-label">Hecho con amor</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTOS -->
+<section class="products" id="productos">
+  <div class="section-header">
+    <span class="section-eyebrow">Nuestro menú</span>
+    <h2 class="section-title">Lo que tenemos para ti</h2>
+  </div>
+
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img-placeholder" style="background: linear-gradient(135deg, #ffe0ee 0%, #ffb3d1 100%);">🥣</div>
+      <div class="product-body">
+        <span class="product-badge">⭐ Estrella</span>
+        <div class="product-name">DeliParfait</div>
+        <div class="product-desc">Capas de mermelada de mora, yogurt griego artesanal, cereal o granola y frutas frescas. Delicioso y saludable.</div>
+        <div class="product-footer">
+          <a href="https://wa.me/573128839786?text=Hola!%20Quiero%20pedir%20un%20DeliParfait" target="_blank" class="product-order-btn">Pedir ahora</a>
+          <span class="product-emoji">🍓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-placeholder" style="background: linear-gradient(135deg, #fff3d0 0%, #ffe08a 100%);">🥛</div>
+      <div class="product-body">
+        <span class="product-badge">🌟 Top ventas</span>
+        <div class="product-name">Yogurt Griego 500g</div>
+        <div class="product-desc">Alto en proteína, textura cremosa. Artesanal, ecológico, saludable. Ideal para tus desayunos y snacks fit.</div>
+        <div class="product-footer">
+          <a href="https://wa.me/573128839786?text=Hola!%20Quiero%20pedir%20Yogurt%20Griego" target="_blank" class="product-order-btn">Pedir ahora</a>
+          <span class="product-emoji">🏺</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-placeholder" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">🍪</div>
+      <div class="product-body">
+        <span class="product-badge">🍫 Nuevo</span>
+        <div class="product-name">Choco Avena</div>
+        <div class="product-desc">Galletas de avena y chocolate, crujientes por fuera y suaves por dentro. El snack fit perfecto.</div>
+        <div class="product-footer">
+          <a href="https://wa.me/573128839786?text=Hola!%20Quiero%20Galletas%20ChocoAvena" target="_blank" class="product-order-btn">Pedir ahora</a>
+          <span class="product-emoji">🌾</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-placeholder" style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);">🥤</div>
+      <div class="product-body">
+        <span class="product-badge">🥛 Bebida</span>
+        <div class="product-name">Kumis Artesanal</div>
+        <div class="product-desc">Kumis natural de 100ml, elaborado artesanalmente. Ecológico, delicioso y lleno de probióticos.</div>
+        <div class="product-footer">
+          <a href="https://wa.me/573128839786?text=Hola!%20Quiero%20Kumis%20Artesanal" target="_blank" class="product-order-btn">Pedir ahora</a>
+          <span class="product-emoji">🍶</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-placeholder" style="background: linear-gradient(135deg, #fff9c4 0%, #fff176 100%);">🥭</div>
+      <div class="product-body">
+        <span class="product-badge">🥭 Tropical</span>
+        <div class="product-name">Mini Deli Parfait</div>
+        <div class="product-desc">Versión mini del parfait estrella: perfecta para antojos rápidos. Mora, yogurt, cereal y frutas.</div>
+        <div class="product-footer">
+          <a href="https://wa.me/573128839786?text=Hola!%20Quiero%20un%20Mini%20Deli%20Parfait" target="_blank" class="product-order-btn">Pedir ahora</a>
+          <span class="product-emoji">✨</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" style="background: linear-gradient(135deg, var(--fucsia) 0%, #c0005a 100%); border-color: var(--fucsia);">
+      <div class="product-body" style="padding-top: 40px;">
+        <div class="product-name" style="color: white; font-size: 1.5rem; margin-bottom: 12px;">¿Tienes un antojo especial? 🎉</div>
+        <div class="product-desc" style="color: rgba(255,255,255,0.85); margin-bottom: 20px;">Escríbenos y armamos tu pedido personalizado. ¡También tenemos domicilio!</div>
+        <a href="https://wa.me/573128839786?text=Hola!%20Quiero%20hacer%20un%20pedido%20personalizado" target="_blank" class="btn-secondary" style="background: white; color: var(--fucsia); border-color: white; display: inline-flex;">
+          💬 Escribir ahora
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BENEFICIOS YOGURT -->
+<section class="benefits" id="beneficios">
+  <div class="benefits-inner">
+    <div class="benefits-visual">
+      <div style="position: relative;">
+        <div class="yogurt-container">🥛</div>
+        <div class="benefit-pill bp-1">💪 Alto en proteína</div>
+        <div class="benefit-pill bp-2">🛡️ Sistema inmune</div>
+        <div class="benefit-pill bp-3">⚖️ Controla el peso</div>
+        <div class="benefit-pill bp-4">🌿 Digestión</div>
+      </div>
+    </div>
+
+    <div class="benefits-content">
+      <div class="section-header">
+        <span class="section-eyebrow">Yogurt Griego</span>
+        <h2 class="section-title">El poder de<br>lo artesanal</h2>
+      </div>
+      <ul class="benefit-list">
+        <li class="benefit-item">
+          <div class="benefit-icon">💪</div>
+          <div class="benefit-text">
+            <strong>Alto en proteína</strong>
+            <span>Apoya el desarrollo muscular y te mantiene saciado por más tiempo.</span>
+          </div>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-icon">🛡️</div>
+          <div class="benefit-text">
+            <strong>Fortalece el sistema inmunológico</strong>
+            <span>Probióticos naturales que cuidan tu salud desde adentro.</span>
+          </div>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-icon">🌿</div>
+          <div class="benefit-text">
+            <strong>Ayuda a la digestión</strong>
+            <span>Textura cremosa y fácil de consumir para toda la familia.</span>
+          </div>
+        </li>
+        <li class="benefit-item">
+          <div class="benefit-icon">⚖️</div>
+          <div class="benefit-text">
+            <strong>Controla peso y ansiedad</strong>
+            <span>Un aliado perfecto para tus metas de bienestar.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ NOSOTROS -->
+<section class="why" id="nosotros">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div class="section-header">
+      <span class="section-eyebrow">¿Por qué Deli Fit?</span>
+      <h2 class="section-title">Hecho con amor,<br>entregado con pasión.</h2>
+    </div>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="why-icon">🌱</span>
+      <div class="why-title">100% Artesanal</div>
+      <div class="why-desc">Todo preparado a mano, con ingredientes frescos y sin conservantes artificiales.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">🛵</span>
+      <div class="why-title">Domicilio disponible</div>
+      <div class="why-desc">Te llevamos tu pedido hasta la puerta. Rápido, fresco y con mucho cariño.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">🥭</span>
+      <div class="why-title">Frutas frescas</div>
+      <div class="why-desc">Trabajamos con frutas de temporada seleccionadas cada día para garantizar frescura.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">🎯</span>
+      <div class="why-title">Para tus metas fit</div>
+      <div class="why-desc">Opciones diseñadas para apoyar tu bienestar sin sacrificar el sabor.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">♻️</span>
+      <div class="why-title">Ecológico</div>
+      <div class="why-desc">Empaque responsable y procesos que respetan el medio ambiente.</div>
+    </div>
+    <div class="why-card">
+      <span class="why-icon">❤️</span>
+      <div class="why-title">Hecho con amor</div>
+      <div class="why-desc">"Hecho con amor — ¡Disfrútalo!" dice nuestra bolsa. Y lo decimos en serio.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIO -->
+<section class="testimonial">
+  <div class="testimonial-inner">
+    <div class="quote-mark">"</div>
+    <blockquote>
+      "Te veo más feliz." — Yo: Es que hoy tuve muchos pedidos. 🥹<br><br>
+      Cuando comer saludable se vuelve tu mejor hábito — y tu negocio más bonito.
+    </blockquote>
+    <div class="testimonial-author">— Deli Fit, Popayán 🌸</div>
+  </div>
+</section>
+
+<!-- CTA PEDIDO -->
+<section class="order-cta" id="pedidos">
+  <h2>¿Listo para tu próximo Parfait?</h2>
+  <p>Escríbenos por WhatsApp o síguenos en Instagram para ver todas nuestras novedades.</p>
+  <div class="order-btns">
+    <a href="https://wa.me/573128839786" target="_blank" class="btn-whatsapp">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp · 3128839786
+    </a>
+    <a href="https://instagram.com/_deli_fit" target="_blank" class="btn-insta">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      @_deli_fit
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">🌱 Deli Fit</div>
+    <div class="footer-tagline">Artesanal · Saludable · Delicioso · Hecho con amor</div>
+    <div class="footer-contact">
+      <span>📍 Popayán, Colombia</span>
+      <a href="https://wa.me/573128839786">📱 3128839786</a>
+      <a href="https://instagram.com/_deli_fit">📸 @_deli_fit</a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">© 2025 Deli Fit · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+</body>
+</html>
